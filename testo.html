@@ -100,38 +100,33 @@
   overflow: hidden;
 }
 
-/* ─────────── Timeline ─────────── */
+/* ─────────── Timeline container ─────────── */
 #timelineWrap {
-  display: block;           /* always visible initially */
   overflow-x: auto;
-  overflow-y: hidden;       /* NO vertical scroll */
+  overflow-y: auto;        /* vertical scroll only when needed */
   cursor: grab;
-  /* Firefox: hide scrollbar */
-  scrollbar-width: none;
-}
-/* WebKit: hide */
-#timelineWrap::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-/* Reveal on hover */
-#timelineWrap:hover {
-  scrollbar-width: thin;             /* Firefox */
+  /* Firefox: thin scrollbar when overflow */
+  scrollbar-width: thin;
   scrollbar-color: var(--scroll) #1f1f23;
 }
-#timelineWrap:hover::-webkit-scrollbar {
+
+/* WebKit: thin scrollbar when overflow */
+#timelineWrap::-webkit-scrollbar {
   width: 13px;
   height: 13px;
 }
-#timelineWrap:hover::-webkit-scrollbar-track {
+#timelineWrap::-webkit-scrollbar-track {
   background: #1f1f23;
 }
-#timelineWrap:hover::-webkit-scrollbar-thumb {
+#timelineWrap::-webkit-scrollbar-thumb {
   background: var(--scroll);
+  border-radius: 6px;
+  transition: background 0.2s;
 }
-#timelineWrap:hover::-webkit-scrollbar-thumb:hover {
+#timelineWrap:hover::-webkit-scrollbar-thumb {
   background: var(--accent);
 }
+
 
 /* ─────────── Dashboard ─────────── */
 #dashWrap {
