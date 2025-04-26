@@ -283,82 +283,92 @@ function buildTimeline(){
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
-  // x scale from year to pixel
+  // 1) x scale
   const x = d3.scaleLinear()
               .domain([yMin, yMax])
               .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
 
-  // bucket jobs by year
+  // 2) bucket jobs by full_auto_year
   const buckets = {};
   jobs.forEach(j => {
     (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
   });
 
-  // compute how many rows fit in the viewport
+  // 3) compute how many rows fit
   const headerH = document.querySelector('header').offsetHeight;
   const availH  = window.innerHeight - headerH - TOP_PAD;
   const rowH    = CARD_H + GAP_V;
-  const rowsPerColDesktop = Math.max(1, Math.floor(availH / rowH));
+  const rowsPerCol = Math.max(1, Math.floor(availH / rowH));
 
-  // compute total SVG dimensions
-  // height based on max rows we’ll actually render
+  // 4) determine overall svg size
   const neededRows = Math.max(
-    ...Object.values(buckets).map(list => Math.min(list.length, rowsPerColDesktop))
+    ...Object.values(buckets).map(list => Math.min(list.length, rowsPerCol))
   );
   const H = TOP_PAD + neededRows * rowH + 20;
   const W = (yMax - yMin) * YEAR_PX + LEFT_PAD + CARD_W;
 
-  svg.attr('width', W)
+  svg.attr('width',  W)
      .attr('height', Math.max(window.innerHeight - headerH, H));
 
-  // ── draw year ticks ─────────────────────────────
-  svg.append('g').selectAll('g')
-     .data(d3.range(yMin, yMax + 1)).enter().append('g')
-     .attr('transform', d => `translate(${x(d)},0)`)
-     .call(g => {
-       g.append('line')
-        .attr('class', 'tick-line')
-        .attr('y1', 0)
-        .attr('y2', H);
-       g.append('text')
-        .attr('class', 'tick-text')
-        .attr('y', 18)
-        .text(d => d);
-     });
+  // 5) draw the year‐ticks & labels
+  svg.append('g')
+     .selectAll('g')
+     .data(d3.range(yMin, yMax + 1))
+     .enter().append('g')
+       .attr('transform', d => `translate(${x(d)},0)`)
+       .call(g => {
+         g.append('line')
+          .attr('class','tick-line')
+          .attr('y1',0).attr('y2',H);
+         g.append('text')
+          .attr('class','tick-text')
+          .attr('y',18)
+          .text(d => d);
+       });
 
-  // ── render job cards in multi-column stacks ─────
+  // 6) render each year’s column stacks, clamped into a ±½ lane
+  const laneHalf = YEAR_PX / 2;
   Object.entries(buckets).forEach(([yr, list]) => {
-    const colsNeeded = Math.ceil(list.length / rowsPerColDesktop);
+    const colsNeeded = Math.ceil(list.length / rowsPerCol);
 
     list.forEach((j, idx) => {
-      const col = Math.floor(idx / rowsPerColDesktop);
-      const row = idx % rowsPerColDesktop;
+      const col = Math.floor(idx / rowsPerCol),
+            row = idx %  rowsPerCol;
 
-      // center columns around the tick
-      const totalWidth = colsNeeded * CARD_W + (colsNeeded - 1) * GAP_H;
-      const startX     = x(+yr) - totalWidth / 2;
+      // compute the raw x,y…
+      const totalW = colsNeeded * CARD_W + (colsNeeded - 1) * GAP_H,
+            rawStartX = x(+yr) - totalW / 2,
+            rawGx     = rawStartX + col * (CARD_W + GAP_H),
+            gy        = TOP_PAD + row * rowH;
 
-      const gx = startX + col * (CARD_W + GAP_H);
-      const gy = TOP_PAD + row * rowH;
+      // …then clamp the *center* of the card to within its ±½-lane
+      const rawCenterX    = rawGx + CARD_W/2,
+            clampedCenter = Math.min(
+              Math.max(rawCenterX, x(+yr) - laneHalf),
+              x(+yr) + laneHalf
+            ),
+            gx = clampedCenter - CARD_W/2;
 
-      const g = svg.append('g')
-                   .attr('transform', `translate(${gx},${gy})`)
-                   .attr('data-j', j.job_code);
+      // append the group
+      const gEl = svg.append('g')
+                     .attr('transform', `translate(${gx},${gy})`)
+                     .attr('data-j', j.job_code);
 
-      g.append('rect')
-       .attr('class', 'job-rect')
-       .attr('width', CARD_W)
-       .attr('height', CARD_H);
+      gEl.append('rect')
+         .attr('class','job-rect')
+         .attr('width', CARD_W)
+         .attr('height', CARD_H);
 
-      g.append('text')
-       .attr('class', 'job-text')
-       .attr('x', CARD_W / 2)
-       .attr('y', CARD_H / 2 + 5)
-       .attr('text-anchor', 'middle')
-       .text(trunc(j.job_title, 22));
+      gEl.append('text')
+         .attr('class','job-text')
+         .attr('x', CARD_W/2)
+         .attr('y', CARD_H/2 + 5)
+         .attr('text-anchor','middle')
+         .text(trunc(j.job_title, 22));
     });
   });
 }
+
 
 
 /* --- vertical column layout (mobile) --- */
