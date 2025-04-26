@@ -93,7 +93,7 @@
     .view{position:absolute;inset:0;overflow:hidden}
     #timelineWrap {
   overflow-x: auto;
-  overflow-y: auto;     /* ← allow vertical scroll */
+  overflow-y: hidden;  /* ← hide vertical scrollbar by default */
   cursor: grab;
 }
 
@@ -360,6 +360,10 @@ function horizontal(svg, yMin, yMax) {
   const W = x(yMax) + CARD_W + LEFT_PAD;
   svg.attr('width', W)
      .attr('height', H);
+  const wrap = document.getElementById('timelineWrap');
+const wrapH = wrap.getBoundingClientRect().height;
+wrap.style.overflowY = (H > wrapH ? 'auto' : 'hidden');
+
 
     // ←— add this right here (after setting svg height)
   const wrap = document.getElementById('timelineWrap');
@@ -434,6 +438,10 @@ function vertical(svg,yMin,yMax){
   const H=Math.max(availH,yScale(yMax)+ROWS_PER_COL_M*(CARD_H+GAP_V)+120);
 
   svg.attr('width',W).attr('height',H);
+  const wrap = document.getElementById('timelineWrap');
+const wrapH = wrap.getBoundingClientRect().height;
+wrap.style.overflowY = (H > wrapH ? 'auto' : 'hidden');
+
 
   /* ticks */
   svg.append('g').selectAll('g')
