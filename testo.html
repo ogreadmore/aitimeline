@@ -407,6 +407,20 @@ function fetchAndInit() {
     })
     .catch(e => console.error(dataset + ' missing', e));
 }
+function sortJobs() {
+  const key = currentSort.key;
+  const asc = currentSort.asc ? 1 : -1;
+  if (!key) return;
+  jobs.sort((a, b) => {
+    let va = a[key], vb = b[key];
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    if (typeof va === 'string') {
+      return va.localeCompare(vb) * asc;
+    }
+    return (va - vb) * asc;
+  });
+}
 
 function init() {
   isMob = window.innerWidth < MOBILE_BREAK;
