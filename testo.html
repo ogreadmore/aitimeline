@@ -93,27 +93,16 @@
     .view{position:absolute;inset:0;overflow:hidden}
 
 
-/* Base “view”: absolutely fill but no scrolling by default */
-.view {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-/* ─── Timeline scrollbars (only when needed) ─── */
 #timelineWrap {
-  overflow-x: auto;
-  overflow-y: auto;         /* vertical only if content overflows */
+  overflow-x: auto;   /* horizontal only when needed */
+  overflow-y: hidden; /* never vertical */
   cursor: grab;
-  /* Firefox */
-  scrollbar-width: thin;
-  scrollbar-color: var(--scroll) #1f1f23;
 }
 
-/* WebKit (Chrome, Safari) */
+/* WebKit: horizontal bar only (hide vertical by zero width) */
 #timelineWrap::-webkit-scrollbar {
-  width: 13px;              /* vertical bar */
-  height: 13px;             /* horizontal bar */
+  height: 13px;  /* thickness of horizontal bar */
+  width: 0;      /* hide vertical bar */
 }
 #timelineWrap::-webkit-scrollbar-track {
   background: #1f1f23;
@@ -121,23 +110,23 @@
 #timelineWrap::-webkit-scrollbar-thumb {
   background: var(--scroll);
   border-radius: 6px;
-  transition: background 0.2s;
+  transition: background .2s;
 }
 #timelineWrap:hover::-webkit-scrollbar-thumb {
   background: var(--accent);
 }
 
-
-
-/* ─────────── Dashboard ─────────── */
-#dashWrap {
-  display: none;           /* HIDDEN by default */
-  overflow: auto;
-  padding: 1rem;
-  /* Firefox always thin magenta */
+/* Firefox: thin horizontal only */
+#timelineWrap {
   scrollbar-width: thin;
-  scrollbar-color: var(--accent) #1f1f23;
+  scrollbar-color: var(--scroll) #1f1f23;
 }
+
+
+
+    #dashWrap{display:none;overflow:auto;padding:1rem}
+
+    /* magenta scrollbars on the “Current State” table */
 #dashWrap::-webkit-scrollbar {
   width: 13px;
   height: 13px;
@@ -152,8 +141,11 @@
   background: var(--accent);
 }
 
-
-    
+/* firefox */
+#dashWrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #1f1f23;
+}
 
     /* timeline visuals */
     .tick-line{stroke:#2d2d32;stroke-width:1}
