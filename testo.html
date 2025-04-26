@@ -207,20 +207,28 @@ let currentSort={key:'current_automation_pct',asc:false};
 let dataset='jobs.json';           /* single, unique declaration */
 
 /* ----------- DATA LOAD ----------- */
-function fetchAndInit() {
+function fetchAndInit () {
   fetch(dataset)
     .then(r => r.json())
     .then(data => {
+      /* flatten object-of-arrays OR keep as-is if already an array */
       jobs = Array.isArray(data) ? data
                                  : Object.values(data).flat();
-      init();                   // build UI
+
+      /* ── NEW: guarantee every record has a unique job_code ───── */
+      jobs.forEach((j, i) => {
+        if (!j.job_code || j.job_code === '') j.job_code = 'j' + i;
+      });
+
+      init();   // build / rebuild the UI
     })
     .catch(err => {
       console.error(dataset, 'missing or unreadable', err);
-      jobs = [];                // fail-safe empty list
+      jobs = [];           // fail-safe empty list
       init();
     });
 }
+
 
 /* ----------- UTILITIES ----------- */
 const trunc=(s,l)=>s&&s.length>l? s.slice(0,l-1)+'…':s;
