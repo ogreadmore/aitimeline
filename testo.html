@@ -332,36 +332,37 @@ function buildTimeline(){
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
-  // 1) x‐scale
+  // Grab the wrapper and its inner height
+  const wrap     = document.getElementById('timelineWrap');
+  const wrapperH = wrap.getBoundingClientRect().height;
+
+  // 1) X‐scale from year to pixels
   const x = d3.scaleLinear()
               .domain([yMin, yMax])
               .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
 
-  // 2) bucket jobs by year
+  // 2) Group jobs by full_auto_year
   const buckets = {};
   jobs.forEach(j => {
     (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
   });
 
-  // 3) figure out how many we stack
-  const maxStack = Math.max(
-    ...Object.values(buckets).map(list => list.length)
-  );
+  // 3) How many stack in the tallest year
+  const maxStack = Math.max(...Object.values(buckets).map(list => list.length));
 
-  // 4) compute the two candidate heights:
-  //    – contentH: how tall it needs to be to fit all cards
-  //    – minH:    how tall your viewport‐area is (so the ticks always fill screen)
-  const headerH  = document.querySelector('header').offsetHeight;
+  // 4) How tall the SVG _needs_ to be to show every card
   const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
-  const minH     = window.innerHeight - headerH;
 
-  // 5) final SVG dimensions
-  const H = Math.max(contentH, minH);
+  // 5) Final SVG height: the bigger of contentH and wrapperH
+  const H = Math.max(contentH, wrapperH);
   const W = x(yMax) + CARD_W + LEFT_PAD;
   svg.attr('width', W)
      .attr('height', H);
 
-  // 6) draw the full‐height tick‐lines + year labels
+  // 6) Toggle the vertical scrollbar on the wrapper
+  wrap.style.overflowY = (contentH > wrapperH ? 'auto' : 'hidden');
+
+  // 7) Draw the year tick‐lines all the way down
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -369,16 +370,16 @@ function horizontal(svg, yMin, yMax) {
        .attr('transform', d => `translate(${x(d)},0)`)
        .call(g => {
          g.append('line')
-          .attr('class','tick-line')
+          .attr('class', 'tick-line')
           .attr('y1', 0)
-          .attr('y2', H);            // ← span entire SVG
+          .attr('y2', H);
          g.append('text')
-          .attr('class','tick-text')
+          .attr('class', 'tick-text')
           .attr('y', 18)
           .text(d => d);
        });
 
-  // 7) render each year’s jobs in a single vertical stack
+  // 8) Render each year’s job cards in a vertical stack
   Object.entries(buckets).forEach(([yr, list]) => {
     list.forEach((j, i) => {
       const gx = x(+yr) - CARD_W / 2;
@@ -389,19 +390,20 @@ function horizontal(svg, yMin, yMax) {
                      .attr('data-j', j.job_code);
 
       gEl.append('rect')
-         .attr('class','job-rect')
+         .attr('class', 'job-rect')
          .attr('width', CARD_W)
          .attr('height', CARD_H);
 
       gEl.append('text')
-         .attr('class','job-text')
-         .attr('x', CARD_W/2)
-         .attr('y', CARD_H/2 + 5)
-         .attr('text-anchor','middle')
-         .text(trunc(j.job_title,22));
+         .attr('class', 'job-text')
+         .attr('x', CARD_W / 2)
+         .attr('y', CARD_H / 2 + 5)
+         .attr('text-anchor', 'middle')
+         .text(trunc(j.job_title, 22));
     });
   });
 }
+
 
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
