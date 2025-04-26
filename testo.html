@@ -216,9 +216,12 @@ function fetchAndInit () {
                                  : Object.values(data).flat();
 
       /* ── NEW: guarantee every record has a unique job_code ───── */
+           // (keep EVERY job_code as a *string* so look-ups work)
       jobs.forEach((j, i) => {
-        if (!j.job_code || j.job_code === '') j.job_code = 'j' + i;
+        const raw = j.job_code ?? ('j' + i); // use existing id or make "j0"
+        j.job_code = String(raw);            // <- convert to string, always
       });
+
 
       init();   // build / rebuild the UI
     })
@@ -232,7 +235,7 @@ function fetchAndInit () {
 
 /* ----------- UTILITIES ----------- */
 const trunc=(s,l)=>s&&s.length>l? s.slice(0,l-1)+'…':s;
-const find =code=>jobs.find(j=>j.job_code===code);
+const find = code => jobs.find(j => String(j.job_code) === code);
 const renderSources=src=>(!src||!src.length)?'—':src.map(s=>s.trim()).join('; ');
 
 /* ----------- CORE INIT ----------- */
