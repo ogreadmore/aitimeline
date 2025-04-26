@@ -13,7 +13,7 @@
 
   <!-- Social / Open-Graph -->
   <meta property="og:title"       content="AI Job Replacement Timeline" />
-  <meta property="og:description" content="When will AI take over your job? This interactive timeline visualises AI's impact on 30+ job roles, based on expert forecasts." />
+  <meta property="og:description" content="When will AI take over your job? This interactive timeline visualises AI's impact on jobs, based on expert forecasts." />
   <meta property="og:url"         content="https://aitimeline.net/" />
   <meta property="og:type"        content="website" />
   <meta property="og:image"       content="https://aitimeline.net/og-image.png" />
@@ -103,6 +103,27 @@
     #timelineWrap::-webkit-scrollbar-thumb{background:var(--scroll)}
     #timelineWrap:hover::-webkit-scrollbar-thumb{background:var(--accent)}
 
+    /* magenta scrollbars on the “Current State” table */
+#dashWrap::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+#dashWrap::-webkit-scrollbar-track {
+  background: #1f1f23;
+}
+#dashWrap::-webkit-scrollbar-thumb {
+  background: var(--scroll);
+}
+#dashWrap:hover::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+/* firefox */
+#dashWrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #1f1f23;
+}
+
     /* timeline visuals */
     .tick-line{stroke:#2d2d32;stroke-width:1}
     .tick-text{fill:var(--fg);font-size:.75rem;font-weight:400;text-anchor:middle}
@@ -130,6 +151,14 @@
       font-size:.77rem;max-width:320px;line-height:1.4;
     }
     #tooltip h4{margin:0 0 .25rem;color:var(--accent-light);font-size:.8rem}
+    #tooltip p {
+  margin: 0 0 0.6rem;      /* space below each paragraph */
+}
+#tooltip svg {
+  display: block;
+  margin: 0 0 0.6rem;      /* space after the circle graphic */
+}
+
 
     .modal-overlay{
       position:fixed;inset:0;background:#000c;backdrop-filter:blur(4px);
@@ -144,6 +173,21 @@
     .modal h3{margin:0 0 .55rem;font-size:.9rem;color:var(--accent-light)}
     .modal-close{text-align:right;margin-top:.85rem}
     .modal-close button{background:#3f3f46;color:var(--fg);padding:.4rem .8rem;border-radius:6px;font-size:.75rem}
+
+    .modal p {
+  margin: 0 0 0.8rem;      /* space under each paragraph */
+}
+.modal h4 {
+  margin: 1rem 0 0.4rem;   /* space above & below the “Data sources” sub-heading */
+}
+.modal ul {
+  margin: 0 0 0.8rem;      /* space below the list */
+  padding-left: 1.2rem;    /* indent bullet list */
+}
+.modal ul li {
+  margin-bottom: 0.4rem;   /* space between each bullet */
+}
+
 
     /* about scroll */
     .about-scroll{max-height:400px;overflow-y:auto;padding-right:10px}
@@ -282,41 +326,78 @@ function buildTimeline(){
 }
 
 /* --- horizontal layout --- */
-function horizontal(svg,yMin,yMax){
-  const x=d3.scaleLinear().domain([yMin,yMax]).range([LEFT_PAD,(yMax-yMin)*YEAR_PX+LEFT_PAD]);
+function horizontal(svg, yMin, yMax) {
+  // 1) x‐scale
+  const x = d3.scaleLinear()
+              .domain([yMin, yMax])
+              .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
 
-  /* bucket jobs by year */
-  const buckets={};
-  jobs.forEach(j=>{(buckets[j.full_auto_year]=buckets[j.full_auto_year]||[]).push(j);});
+  // 2) bucket jobs by year
+  const buckets = {};
+  jobs.forEach(j => {
+    (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
+  });
 
-  const maxStack=Math.max(...Object.values(buckets).map(b=>b.length));
-  const headerH=document.querySelector('header').offsetHeight;
-  const availH=window.innerHeight-headerH;
-  const H=Math.max(availH,TOP_PAD+maxStack*(CARD_H+GAP_V)+20);
-  const W=x(yMax)+CARD_W+LEFT_PAD;
+  // 3) figure out how many we stack
+  const maxStack = Math.max(
+    ...Object.values(buckets).map(list => list.length)
+  );
 
-  svg.attr('width',W).attr('height',H);
+  // 4) compute the two candidate heights:
+  //    – contentH: how tall it needs to be to fit all cards
+  //    – minH:    how tall your viewport‐area is (so the ticks always fill screen)
+  const headerH  = document.querySelector('header').offsetHeight;
+  const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
+  const minH     = window.innerHeight - headerH;
 
-  /* year ticks */
-  svg.append('g').selectAll('g')
-     .data(d3.range(yMin,yMax+1)).enter().append('g')
-     .attr('transform',d=>`translate(${x(d)},0)`)
-     .call(g=>{
-       g.append('line').attr('class','tick-line').attr('y1',0).attr('y2',H);
-       g.append('text').attr('class','tick-text').attr('y',18).text(d=>d);
-     });
+  // 5) final SVG dimensions
+  const H = Math.max(contentH, minH);
+  const W = x(yMax) + CARD_W + LEFT_PAD;
+  svg.attr('width', W)
+     .attr('height', H);
 
-  /* job cards */
-  Object.entries(buckets).forEach(([yr,list])=>{
-    list.forEach((j,i)=>{
-      const gx=x(+yr)-CARD_W/2, gy=TOP_PAD+i*(CARD_H+GAP_V);
-      const g=svg.append('g').attr('transform',`translate(${gx},${gy})`).attr('data-j',j.job_code);
-      g.append('rect').attr('class','job-rect').attr('width',CARD_W).attr('height',CARD_H);
-      g.append('text').attr('class','job-text').attr('x',CARD_W/2).attr('y',CARD_H/2+5)
-       .attr('text-anchor','middle').text(trunc(j.job_title,22));
+  // 6) draw the full‐height tick‐lines + year labels
+  svg.append('g')
+     .selectAll('g')
+     .data(d3.range(yMin, yMax + 1))
+     .enter().append('g')
+       .attr('transform', d => `translate(${x(d)},0)`)
+       .call(g => {
+         g.append('line')
+          .attr('class','tick-line')
+          .attr('y1', 0)
+          .attr('y2', H);            // ← span entire SVG
+         g.append('text')
+          .attr('class','tick-text')
+          .attr('y', 18)
+          .text(d => d);
+       });
+
+  // 7) render each year’s jobs in a single vertical stack
+  Object.entries(buckets).forEach(([yr, list]) => {
+    list.forEach((j, i) => {
+      const gx = x(+yr) - CARD_W / 2;
+      const gy = TOP_PAD + i * (CARD_H + GAP_V);
+
+      const gEl = svg.append('g')
+                     .attr('transform', `translate(${gx},${gy})`)
+                     .attr('data-j', j.job_code);
+
+      gEl.append('rect')
+         .attr('class','job-rect')
+         .attr('width', CARD_W)
+         .attr('height', CARD_H);
+
+      gEl.append('text')
+         .attr('class','job-text')
+         .attr('x', CARD_W/2)
+         .attr('y', CARD_H/2 + 5)
+         .attr('text-anchor','middle')
+         .text(trunc(j.job_title,22));
     });
   });
 }
+
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
   const YEAR_SPACING=isMob?40:0;
@@ -546,18 +627,33 @@ function about(){
   showModal(`
 <h3>About the AI Job Replacement Timeline</h3>
 <div class="about-scroll">
-  <p><strong>AITimeline.net</strong> is an interactive platform that tracks how artificial intelligence and automation are transforming the workforce. It visualises expert forecasts for when tasks—and entire job roles—are likely to be automated, and shows current automation progress.</p>
+  <p><strong>AITimeline.net</strong> is your one-stop interactive dashboard for understanding how AI and automation are reshaping today’s workforce. On the <em>Timeline</em> view you’ll see:</p>
+  <ul>
+    <li><strong>Job cards</strong> – colored boxes under each year show individual roles; hover or click to see current automation levels, sources, and reasoning.</li>
+    <li><strong>Scroll & zoom</strong> – drag horizontally or pinch-zoom (⌘+scroll) to explore future decades in detail.</li>
+  </ul>
+
+  <p>Switch to the <em>Current State</em> table to see:</p>
+  <ul>
+    <li><strong>Current Automation State %</strong> – how much of each role is already handled by machines and AI.</li>
+    <li><strong>Industry</strong> – the sector each job belongs in.</li>
+    <li><strong>Full-Auto Year</strong> – the synthesized expert consensus year when humans may no longer be required.</li>
+    <li><strong>Sources & Reasoning</strong> – citations and a one-to-two-sentence rationale for each forecast.</li>
+    <li><strong>Sortable columns </strong> – click headers to reorder, scroll through the list to compare across industries.</li>
+  </ul>
 
   <h4>Data sources</h4>
   <ul>
-    <li>Peer-reviewed academic studies</li>
-    <li>Technology-vendor &amp; industry research reports</li>
-    <li>Management-consulting forecasts (McKinsey, PwC, BCG, Gartner…)</li>
-    <li>Professional associations (AMA, ABA, AICPA…)</li>
-    <li>Results from real-world pilots in robotics, autonomous vehicles, AI customer service, etc.</li>
+    <li>Peer-reviewed academic studies on task automation and AI capabilities</li>
+    <li>Technology-vendor & industry research (Forrester, Gartner, McKinsey, BCG…)</li>
+    <li>Government & professional association reports (U.S. Department of Labor, AMA, AICPA, IEEE…)</li>
+    <li>Real-world pilot projects in robotics, autonomous vehicles, AI customer service, and more</li>
+    <li>Up-to-date press releases and case studies from leading AI providers (OpenAI, Google, AWS, UiPath…)</li>
   </ul>
 
-  <p>Built by <a href="https://oliphantdigital.com" target="_blank" rel="noopener">Oliphant Digital</a>.</p>
+  <p>You can use the dropdown in the top-right to compare multiple forecast datasets (e.g. ChatGPT 4o vs Gemini).<br>
+     Built and maintained by <a href="https://oliphantdigital.com" target="_blank" rel="noopener">Oliphant Digital</a>. Feedback & updates welcome via <a href="mailto:hello@oliphantdigital.com">hello@oliphantdigital.com</a>.</p>
+
 </div>`);
 }
 
