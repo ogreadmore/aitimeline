@@ -361,7 +361,8 @@ function horizontal(svg, yMin, yMax) {
   svg.attr('width', W)
      .attr('height', H);
 
-  // 6) draw the full‐height tick‐lines + year labels
+  // 6) draw the tick-lines clipped to the wrapper height
+  const wrapHeight = document.getElementById('timelineWrap').clientHeight;
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -371,12 +372,13 @@ function horizontal(svg, yMin, yMax) {
          g.append('line')
           .attr('class','tick-line')
           .attr('y1', 0)
-          .attr('y2', H);            // ← span entire SVG
+          .attr('y2', wrapHeight);  // ← now stops at the bottom of the wrapper
          g.append('text')
           .attr('class','tick-text')
           .attr('y', 18)
           .text(d => d);
        });
+
 
   // 7) render each year’s jobs in a single vertical stack
   Object.entries(buckets).forEach(([yr, list]) => {
