@@ -33,6 +33,22 @@
       --scroll:#3f3f46;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+    
+    /* Make the nav items wrap and allow select to shrink on phones */
+@media (max-width: 650px) {
+  nav {
+    flex-wrap: wrap;
+    gap: 0.5rem;            /* a little breathing room */
+  }
+  nav button,
+  nav select {
+    flex: 1 1 auto;         /* allow each to grow/shrink */
+    min-width: 0;           /* prevent overflow */
+  }
+  nav select {
+    max-width: 100%;        /* never wider than its container */
+  }
+}
 
     /* ───────────── Layout shell ───────────── */
     html,body{height:100%;overflow:hidden}
