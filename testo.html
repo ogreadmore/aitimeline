@@ -422,6 +422,24 @@ function sortJobs() {
   });
 }
 
+  function buildDash() {
+  const tbody = document.querySelector('#dashTbl tbody');
+  tbody.innerHTML = '';
+  jobs.forEach(j => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${j.job_title}</td>
+      <td>${(j.current_automation_pct ?? '—') + '%'}</td>
+      <td>${j.industry ?? '—'}</td>
+      <td>${j.full_auto_year ?? '—'}</td>
+      <td>${renderSources(j.sources)}</td>
+      <td>${trunc(j.reasoning || '', 120)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+  
 function init() {
   isMob = window.innerWidth < MOBILE_BREAK;
   buildTimeline();
