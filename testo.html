@@ -100,20 +100,20 @@
   overflow: hidden;
 }
 
-/* ─────────── Timeline container ─────────── */
+/* ─── Timeline scrollbars (only when needed) ─── */
 #timelineWrap {
   overflow-x: auto;
-  overflow-y: auto;        /* vertical scroll only when needed */
+  overflow-y: auto;         /* vertical only if content overflows */
   cursor: grab;
-  /* Firefox: thin scrollbar when overflow */
+  /* Firefox */
   scrollbar-width: thin;
   scrollbar-color: var(--scroll) #1f1f23;
 }
 
-/* WebKit: thin scrollbar when overflow */
+/* WebKit (Chrome, Safari) */
 #timelineWrap::-webkit-scrollbar {
-  width: 13px;
-  height: 13px;
+  width: 13px;              /* vertical bar */
+  height: 13px;             /* horizontal bar */
 }
 #timelineWrap::-webkit-scrollbar-track {
   background: #1f1f23;
@@ -126,6 +126,7 @@
 #timelineWrap:hover::-webkit-scrollbar-thumb {
   background: var(--accent);
 }
+
 
 
 /* ─────────── Dashboard ─────────── */
