@@ -93,24 +93,30 @@
     .view{position:absolute;inset:0;overflow:hidden}
 
 
-/* ────────── Timeline scrollbars: hidden by default, show on hover ────────── */
+/* Base “view”: absolutely fill but no scrolling by default */
+.view {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ─────────── Timeline ─────────── */
 #timelineWrap {
+  display: block;           /* always visible initially */
   overflow-x: auto;
-  overflow-y: auto;
+  overflow-y: hidden;       /* NO vertical scroll */
   cursor: grab;
   /* Firefox: hide scrollbar */
   scrollbar-width: none;
 }
-/* WebKit: hide scrollbar */
+/* WebKit: hide */
 #timelineWrap::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
-
 /* Reveal on hover */
 #timelineWrap:hover {
-  /* Firefox: show thin scrollbar */
-  scrollbar-width: thin;
+  scrollbar-width: thin;             /* Firefox */
   scrollbar-color: var(--scroll) #1f1f23;
 }
 #timelineWrap:hover::-webkit-scrollbar {
@@ -127,12 +133,12 @@
   background: var(--accent);
 }
 
-
-/* ────────── Dashboard scrollbars: always thin magenta ────────── */
+/* ─────────── Dashboard ─────────── */
 #dashWrap {
+  display: none;           /* HIDDEN by default */
   overflow: auto;
   padding: 1rem;
-  /* Firefox */
+  /* Firefox always thin magenta */
   scrollbar-width: thin;
   scrollbar-color: var(--accent) #1f1f23;
 }
@@ -149,6 +155,7 @@
 #dashWrap:hover::-webkit-scrollbar-thumb {
   background: var(--accent);
 }
+
 
     
 
