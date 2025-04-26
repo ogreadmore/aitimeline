@@ -1,0 +1,542 @@
+[
+  {
+    "job_code": "001",
+    "job_title": "Data Entry Clerk",
+    "industry": "Administrative Support",
+    "current_automation_pct": 60,
+    "full_auto_year": 2027,
+    "sources": ["&#8203;:contentReference[oaicite:0]{index=0}", "&#8203;:contentReference[oaicite:1]{index=1}"],
+    "reasoning": "World Economic Forum notes that roles like data entry and administrative support are rapidly being automated&#8203;:contentReference[oaicite:2]{index=2}. By 2027, studies forecast millions of data-entry jobs will be displaced by AI and robotics&#8203;:contentReference[oaicite:3]{index=3}, implying many tasks are already computerized. We estimate roughly 60% of data-entry tasks are automated; with continued AI and software adoption, full automation is likely around 2027 as firms digitize all data workflows&#8203;:contentReference[oaicite:4]{index=4}."
+  },
+  {
+    "job_code": "002",
+    "job_title": "Customer Service Representative",
+    "industry": "Call Center Services",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:5]{index=5}", "&#8203;:contentReference[oaicite:6]{index=6}"],
+    "reasoning": "Routine customer inquiries are increasingly handled by AI chatbots and IVR systems, but nuanced problem-solving still requires humans&#8203;:contentReference[oaicite:7]{index=7}. Approximately 30% of standard customer service tasks (like FAQs and order tracking) are automated today. Full end-to-end automation (including complex judgments and empathy) is not imminent; given current technological and social limits, we project full automation around 2035. This aligns with analyses that few occupations are completely automatable, especially those requiring human interaction&#8203;:contentReference[oaicite:8]{index=8}."
+  },
+  {
+    "job_code": "003",
+    "job_title": "Retail Cashier",
+    "industry": "Retail",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:9]{index=9}", "&#8203;:contentReference[oaicite:10]{index=10}"],
+    "reasoning": "Retail checkout has seen automation (self-checkout kiosks, mobile payment, etc.), but many tasks (bagging, handling exceptions) remain manual. We estimate roughly 30% of cashier tasks are automated today. Full automation is challenging because retail work involves unpredictable customer interactions; McKinsey finds very few occupations can be completely automated&#8203;:contentReference[oaicite:11]{index=11}. With current technology and adoption rates, full automation of cashier roles is likely around 2035."
+  },
+  {
+    "job_code": "004",
+    "job_title": "Bank Teller",
+    "industry": "Finance",
+    "current_automation_pct": 70,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:12]{index=12}", "&#8203;:contentReference[oaicite:13]{index=13}"],
+    "reasoning": "Automated teller machines and digital banking apps perform most routine bank transactions (withdrawals, deposits, simple transfers), so we estimate ~70% of teller tasks are automated now. Specialized services (loan consultations, complex transactions) still need human tellers. The World Economic Forum notes roles like administrative banking support are declining due to automation&#8203;:contentReference[oaicite:14]{index=14}. Complete teller automation (no human staff) is likely only by the mid-2030s given current technology and regulatory constraints&#8203;:contentReference[oaicite:15]{index=15}&#8203;:contentReference[oaicite:16]{index=16}."
+  },
+  {
+    "job_code": "005",
+    "job_title": "Telemarketer",
+    "industry": "Telemarketing",
+    "current_automation_pct": 60,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:17]{index=17}", "&#8203;:contentReference[oaicite:18]{index=18}"],
+    "reasoning": "Many telemarketing tasks (cold calling, scripted sales pitches) are already handled by AI-driven voice bots and automated dialers. We estimate ~60% of basic telemarketing activities are automated today. Telemarketing is dominated by repetitive scripted interactions, which WEF notes are being rapidly displaced by automation&#8203;:contentReference[oaicite:19]{index=19}. Given the pace of AI voice technology, full automation of telemarketing is plausible by around 2030, subject to regulations."
+  },
+  {
+    "job_code": "006",
+    "job_title": "Assembly Line Worker",
+    "industry": "Manufacturing",
+    "current_automation_pct": 70,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:20]{index=20}", "&#8203;:contentReference[oaicite:21]{index=21}"],
+    "reasoning": "Assembly line operations are already heavily automated with industrial robots and machinery. We estimate about 70% of tasks on modern assembly lines are automated. Indeed, millions of manufacturing jobs have been lost to automation (e.g., ~1.7M since 2000&#8203;:contentReference[oaicite:22]{index=22}). However, some manual oversight and flexible adjustments are still needed. Based on current trends, full automation of assembly work is expected by the mid-2030s, aligning with analysis that complete automation is uncommon in the near term&#8203;:contentReference[oaicite:23]{index=23}."
+  },
+  {
+    "job_code": "007",
+    "job_title": "Warehouse Worker",
+    "industry": "Logistics",
+    "current_automation_pct": 50,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:24]{index=24}", "&#8203;:contentReference[oaicite:25]{index=25}"],
+    "reasoning": "Warehouse operations are increasingly mechanized (e.g., robotic pickers, conveyor sorting). We estimate ~50% of routine warehousing tasks are automated today. Automation has driven significant logistics job losses (consistent with ~1.7M manufacturing roles lost to automation&#8203;:contentReference[oaicite:26]{index=26}). Yet many tasks (e.g., irregular packing, complex inventory decisions) still require humans. Full automation of warehouse labor is expected by the mid-2030s, consistent with projections that most jobs won’t be fully automated in the near term&#8203;:contentReference[oaicite:27]{index=27}."
+  },
+  {
+    "job_code": "008",
+    "job_title": "Truck Driver",
+    "industry": "Transportation",
+    "current_automation_pct": 10,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:28]{index=28}", "&#8203;:contentReference[oaicite:29]{index=29}"],
+    "reasoning": "Autonomous driving technology is advancing but still limited: only specialized trucking routes see significant automation. We estimate ~10% of tasks are automated (autopilot or platooning on highways). Piloting vehicles in open road conditions remains challenging. McKinsey notes that full automation is rare in the near term&#8203;:contentReference[oaicite:30]{index=30}, and factors like regulation and safety slow adoption. Therefore, full automation of truck driving is not expected until around 2040."
+  },
+  {
+    "job_code": "009",
+    "job_title": "Taxi Driver",
+    "industry": "Transportation",
+    "current_automation_pct": 10,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:31]{index=31}", "&#8203;:contentReference[oaicite:32]{index=32}"],
+    "reasoning": "Ride-hailing apps and early driverless pilots automate some components of taxi driving, but most tasks remain manual. We estimate about 10% of taxi driving functions (navigation support, dispatch) are automated today. Fully driverless taxis operate only in limited test zones. As with trucks, regulatory and technical hurdles mean full automation of taxis is likely by the mid-2030s&#8203;:contentReference[oaicite:33]{index=33}."
+  },
+  {
+    "job_code": "010",
+    "job_title": "Airline Pilot",
+    "industry": "Aviation",
+    "current_automation_pct": 70,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:34]{index=34}", "&#8203;:contentReference[oaicite:35]{index=35}"],
+    "reasoning": "Commercial aircraft have highly advanced autopilot systems handling most in-flight tasks, so roughly 70% of typical flight tasks are automated. However, pilots still manage takeoff/landing and unexpected situations. Full pilotless commercial flights face major regulatory and safety barriers. Given these constraints, full automation of airline piloting is likely several decades away (around 2050)&#8203;:contentReference[oaicite:36]{index=36}."
+  },
+  {
+    "job_code": "011",
+    "job_title": "Radiologist",
+    "industry": "Healthcare",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:37]{index=37}", "&#8203;:contentReference[oaicite:38]{index=38}"],
+    "reasoning": "AI tools are assisting radiologists (e.g., imaging analysis), but radiology remains largely human-driven. We estimate ~20% of radiologist tasks are automated via AI augmentation. Routine image screening can be done by algorithms, but diagnosis still requires human oversight and decision-making. McKinsey notes very few jobs are fully automatable&#8203;:contentReference[oaicite:39]{index=39}, so full automation of radiology is not expected for decades (around 2040)."
+  },
+  {
+    "job_code": "012",
+    "job_title": "Surgeon",
+    "industry": "Healthcare",
+    "current_automation_pct": 10,
+    "full_auto_year": 2045,
+    "sources": ["&#8203;:contentReference[oaicite:40]{index=40}", "&#8203;:contentReference[oaicite:41]{index=41}"],
+    "reasoning": "Surgical robots aid in precision tasks but surgeons remain in control of procedures. We estimate ~10% of surgical tasks (repetitive cuts, suturing) are automated. Surgery involves complex judgment and adaptation, making full automation distant. Given current tech, full robotic surgery is unlikely before mid-century&#8203;:contentReference[oaicite:42]{index=42}."
+  },
+  {
+    "job_code": "013",
+    "job_title": "Fast Food Cook",
+    "industry": "Food Services",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:43]{index=43}", "&#8203;:contentReference[oaicite:44]{index=44}"],
+    "reasoning": "Some fast-food preparation (e.g., burger flipping, beverage dispensing) is automated in labs or test kitchens, but most tasks are manual. We estimate ~20% automation currently (e.g., automated fry stations, robotic grills). Cleaning, customization, and food safety oversight still need humans. Given technology trends, full automation of cooking is likely by 2040 at the earliest&#8203;:contentReference[oaicite:45]{index=45}."
+  },
+  {
+    "job_code": "014",
+    "job_title": "Waiter/Waitress",
+    "industry": "Hospitality",
+    "current_automation_pct": 10,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:46]{index=46}", "&#8203;:contentReference[oaicite:47]{index=47}"],
+    "reasoning": "Some restaurants use tablets for ordering and robots for food delivery, but personal service tasks (order customization, hospitality) are largely human. We estimate ~10% of waiter tasks are automated. Restaurants are dynamic and customer-facing, making full automation difficult. Thus, widespread automated waiting staff is unlikely before ~2040&#8203;:contentReference[oaicite:48]{index=48}."
+  },
+  {
+    "job_code": "015",
+    "job_title": "Janitor/Custodian",
+    "industry": "Facilities Services",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:49]{index=49}", "&#8203;:contentReference[oaicite:50]{index=50}"],
+    "reasoning": "Automated vacuums and floor-cleaning robots are common, handling routine cleaning tasks. We estimate ~30% of cleaning tasks are automated today. However, tasks requiring flexibility or human care (e.g., sanitizing sensitive areas) remain manual. Given technological progress, full automation of janitorial work could be achieved by mid-2030s&#8203;:contentReference[oaicite:51]{index=51}."
+  },
+  {
+    "job_code": "016",
+    "job_title": "Accountant",
+    "industry": "Finance/Accounting",
+    "current_automation_pct": 50,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:52]{index=52}", "&#8203;:contentReference[oaicite:53]{index=53}"],
+    "reasoning": "Basic accounting tasks (bookkeeping, invoicing) are heavily automated by software and AI, so around half of typical accounting work is automated. WEF notes that accounting roles are among those declining due to digitization&#8203;:contentReference[oaicite:54]{index=54}. Complex tasks (strategic tax planning, audit analysis) still involve humans. With continued adoption of AI accounting tools, full automation is plausible by around 2030."
+  },
+  {
+    "job_code": "017",
+    "job_title": "Bookkeeper",
+    "industry": "Finance/Accounting",
+    "current_automation_pct": 70,
+    "full_auto_year": 2028,
+    "sources": ["&#8203;:contentReference[oaicite:55]{index=55}", "&#8203;:contentReference[oaicite:56]{index=56}"],
+    "reasoning": "Bookkeeping (recording transactions) is largely automated by modern software. We estimate ~70% of bookkeeping tasks are automated. As noted by the WEF, administrative financial roles are increasingly taken over by machines&#8203;:contentReference[oaicite:57]{index=57}. Given the low complexity, full automation of bookkeeping is likely in the very near term (circa late 2020s)."
+  },
+  {
+    "job_code": "018",
+    "job_title": "Lawyer",
+    "industry": "Legal",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:58]{index=58}", "&#8203;:contentReference[oaicite:59]{index=59}"],
+    "reasoning": "AI can handle some legal tasks (document review, legal research); around 20% of typical lawyer tasks are automated. Pew/Wiring up stats show ~44% of tasks in legal jobs are AI-amenable&#8203;:contentReference[oaicite:60]{index=60}, but actual practice and judgement remain human. Full automation of lawyering is distant (likely by ~2040) given complexities of law and ethics&#8203;:contentReference[oaicite:61]{index=61}."
+  },
+  {
+    "job_code": "019",
+    "job_title": "Paralegal",
+    "industry": "Legal Support",
+    "current_automation_pct": 50,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:62]{index=62}", "&#8203;:contentReference[oaicite:63]{index=63}"],
+    "reasoning": "Routine paralegal tasks (document drafting, legal research) are increasingly aided by AI tools. We estimate ~50% of paralegal work is automated now. Tools can generate standard legal documents and help review contracts. As a result, full automation is expected sooner than for lawyers, around 2030. However, interpretation and client liaison remain human tasks, and total replacement is tempered by regulatory and complexity factors&#8203;:contentReference[oaicite:64]{index=64}."
+  },
+  {
+    "job_code": "020",
+    "job_title": "Journalist/Reporter",
+    "industry": "Media",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:65]{index=65}", "&#8203;:contentReference[oaicite:66]{index=66}"],
+    "reasoning": "AI can generate basic news articles and reports, but investigative journalism and interviews require human insight. We estimate ~20% of journalistic writing tasks are automated today. Some newsrooms use AI for routine stories (e.g., financial reports). Nonetheless, full replacement of reporters is unlikely soon due to the creative and trust aspects. Complete automation of journalism is projected around 2040, reflecting that most occupations won’t be fully automated in the near term&#8203;:contentReference[oaicite:67]{index=67}."
+  },
+  {
+    "job_code": "021",
+    "job_title": "Content Writer/Author",
+    "industry": "Media/Publishing",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:68]{index=68}", "&#8203;:contentReference[oaicite:69]{index=69}"],
+    "reasoning": "AI tools can draft articles, marketing copy and novels to some degree, so maybe ~30% of writing tasks are automated. However, creativity, complex storytelling, and tailored communication are still human. As generative AI improves, automation will increase, but full creative authorship is likely around the mid-2030s&#8203;:contentReference[oaicite:70]{index=70}."
+  },
+  {
+    "job_code": "022",
+    "job_title": "Graphic Designer",
+    "industry": "Creative Services",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:71]{index=71}"],
+    "reasoning": "AI can generate images and layouts, handling some design tasks (~30% automated now). However, design requires aesthetic judgment and client collaboration. Full automation of creative design is expected by mid-2030s at the earliest&#8203;:contentReference[oaicite:72]{index=72}."
+  },
+  {
+    "job_code": "023",
+    "job_title": "Software Developer",
+    "industry": "Technology",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:73]{index=73}"],
+    "reasoning": "AI-assisted coding tools exist, but software development still needs human creativity and problem-solving. We estimate ~20% of coding tasks (e.g., boilerplate, testing) are automated. Given the complexity of software engineering, full automation is unlikely before the 2040s&#8203;:contentReference[oaicite:74]{index=74}."
+  },
+  {
+    "job_code": "024",
+    "job_title": "HR Recruiter",
+    "industry": "Human Resources",
+    "current_automation_pct": 40,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:75]{index=75}", "&#8203;:contentReference[oaicite:76]{index=76}"],
+    "reasoning": "Tools like AI-driven resume screening and chatbots automate many initial recruiting tasks, so roughly 40% of a recruiter’s work can be automated. Reports find that many HR roles are being reshaped by automation, with routine tasks largely handled by software&#8203;:contentReference[oaicite:77]{index=77}. Full replacement is limited by the need for human judgment in hiring; full automation of HR recruiting is unlikely before ~2030."
+  },
+  {
+    "job_code": "025",
+    "job_title": "Librarian/Archivist",
+    "industry": "Education/Information Services",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:78]{index=78}"],
+    "reasoning": "Library cataloging and information retrieval are heavily digitized (e.g., automated cataloguing, digital archives), so ~30% of tasks are automated. However, librarians provide research guidance and curation that remain human-driven. Full automation of the role is not immediate and would likely occur by the mid-2030s&#8203;:contentReference[oaicite:79]{index=79}."
+  },
+  {
+    "job_code": "026",
+    "job_title": "K-12 Teacher",
+    "industry": "Education",
+    "current_automation_pct": 20,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:80]{index=80}"],
+    "reasoning": "Educational software and online courses automate some teaching tasks (e.g., grading quizzes), but teaching involves interpersonal skills. We estimate ~20% automation of routine tasks. McKinsey notes that roles requiring human interaction (like teaching) are among the least automatable&#8203;:contentReference[oaicite:81]{index=81}. Full automation of teaching is unlikely within the current century (projected ~2050)."
+  },
+  {
+    "job_code": "027",
+    "job_title": "College Professor",
+    "industry": "Education",
+    "current_automation_pct": 20,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:82]{index=82}"],
+    "reasoning": "Online learning platforms automate content delivery and some assessment (~20% of tasks). However, mentoring, research, and discussion leadership remain human-centric. Full replacement of professors is unlikely this century&#8203;:contentReference[oaicite:83]{index=83}."
+  },
+  {
+    "job_code": "028",
+    "job_title": "Research Scientist",
+    "industry": "Research and Development",
+    "current_automation_pct": 10,
+    "full_auto_year": 2060,
+    "sources": ["&#8203;:contentReference[oaicite:84]{index=84}"],
+    "reasoning": "AI tools assist in data analysis but generating hypotheses and experiments are human-led. We estimate ~10% automation in routine data tasks. Complex R&D depends on creativity and is far from full automation&#8203;:contentReference[oaicite:85]{index=85}."
+  },
+  {
+    "job_code": "029",
+    "job_title": "Social Worker",
+    "industry": "Social Services",
+    "current_automation_pct": 10,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:86]{index=86}"],
+    "reasoning": "Some administrative aspects (case note keeping) are automated, but direct counseling requires humans. We estimate ~10% automation. Full automation is unlikely before the mid-21st century&#8203;:contentReference[oaicite:87]{index=87}."
+  },
+  {
+    "job_code": "030",
+    "job_title": "Psychotherapist/Counselor",
+    "industry": "Healthcare/Mental Health",
+    "current_automation_pct": 5,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:88]{index=88}"],
+    "reasoning": "AI chatbots offer some mental health support, but deep therapy relies on human empathy. Maybe 5% automated. Full automation is not expected soon (likely mid-century)&#8203;:contentReference[oaicite:89]{index=89}."
+  },
+  {
+    "job_code": "031",
+    "job_title": "Pharmacist",
+    "industry": "Healthcare",
+    "current_automation_pct": 30,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:90]{index=90}"],
+    "reasoning": "Medication dispensing can be automated, and some advisory tools exist (~30% tasks). Clinical judgment and patient interaction remain human. Full automation by around 2040."
+  },
+  {
+    "job_code": "032",
+    "job_title": "Nurse",
+    "industry": "Healthcare",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:91]{index=91}"],
+    "reasoning": "Routine monitoring is automated, but caregiving needs humans (~20% automated). Full automation in nursing is unlikely before 2040."
+  },
+  {
+    "job_code": "033",
+    "job_title": "Dentist",
+    "industry": "Healthcare",
+    "current_automation_pct": 10,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:92]{index=92}"],
+    "reasoning": "Some diagnostic imaging and routine tasks assist by tech (~10%). Full patient care and complex procedures remain human-driven, automation decades away."
+  },
+  {
+    "job_code": "034",
+    "job_title": "Veterinarian",
+    "industry": "Healthcare",
+    "current_automation_pct": 10,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:93]{index=93}"],
+    "reasoning": "Animal care (diagnosis, surgery) still human-centric (~10% automated through imaging tools). Full automation not expected soon (mid-century)&#8203;:contentReference[oaicite:94]{index=94}."
+  },
+  {
+    "job_code": "035",
+    "job_title": "Electrician",
+    "industry": "Construction",
+    "current_automation_pct": 10,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:95]{index=95}"],
+    "reasoning": "Installation requires human skill; maybe 10% tasks automated (e.g., circuit testing). Full automation is unlikely this century."
+  },
+  {
+    "job_code": "036",
+    "job_title": "Plumber",
+    "industry": "Construction",
+    "current_automation_pct": 5,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:96]{index=96}"],
+    "reasoning": "Hands-on plumbing is mostly manual (~5% automation like simple testing tools). Full automation is very distant, likely post-2050."
+  },
+  {
+    "job_code": "037",
+    "job_title": "Construction Laborer",
+    "industry": "Construction",
+    "current_automation_pct": 10,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:97]{index=97}"],
+    "reasoning": "Some machinery (brick-laying robots) exists, but most construction is unpredictable. We estimate ~10% automation. Full automation is far off."
+  },
+  {
+    "job_code": "038",
+    "job_title": "Aerospace Engineer",
+    "industry": "Aerospace",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:98]{index=98}"],
+    "reasoning": "Design and simulation tools automate some tasks (~20%). Complex R&D and safety checks need humans. Full automation unlikely before 2040."
+  },
+  {
+    "job_code": "039",
+    "job_title": "Financial Advisor",
+    "industry": "Finance",
+    "current_automation_pct": 30,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:99]{index=99}"],
+    "reasoning": "Financial analysis software handles many tasks (~30%). Personalized advice still human. Full automation by 2040."
+  },
+  {
+    "job_code": "040",
+    "job_title": "Stock Broker",
+    "industry": "Finance",
+    "current_automation_pct": 50,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:100]{index=100}"],
+    "reasoning": "Automated trading algorithms handle much stock trading (~50%). Full service with human broker is a small part. Many trading roles already displaced; remaining tasks could be automated by 2030."
+  },
+  {
+    "job_code": "041",
+    "job_title": "Insurance Underwriter",
+    "industry": "Insurance",
+    "current_automation_pct": 40,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:101]{index=101}", "&#8203;:contentReference[oaicite:102]{index=102}"],
+    "reasoning": "Data-driven underwriting is increasingly automated (~40%). Risk assessment still requires nuance. Full automation likely by mid-2030s."
+  },
+  {
+    "job_code": "042",
+    "job_title": "Quality Control Inspector",
+    "industry": "Manufacturing",
+    "current_automation_pct": 30,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:103]{index=103}", "&#8203;:contentReference[oaicite:104]{index=104}"],
+    "reasoning": "Vision systems and sensors automate many QC tasks (~30%). Complex inspections still human. Many factories target automated QC by 2030&#8203;:contentReference[oaicite:105]{index=105}."
+  },
+  {
+    "job_code": "043",
+    "job_title": "Maintenance Technician",
+    "industry": "Manufacturing/Services",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:106]{index=106}"],
+    "reasoning": "Predictive maintenance software automates diagnostics (~20%). Repair work still manual. Full tech maintenance is decades away."
+  },
+  {
+    "job_code": "044",
+    "job_title": "Security Guard",
+    "industry": "Security Services",
+    "current_automation_pct": 40,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:107]{index=107}"],
+    "reasoning": "Automated surveillance and analytics cover many tasks (~40%). Response and judgement still human. Full automation by 2040 with drones/robots."
+  },
+  {
+    "job_code": "045",
+    "job_title": "Police Officer",
+    "industry": "Public Safety",
+    "current_automation_pct": 10,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:108]{index=108}"],
+    "reasoning": "Some surveillance tech aids police, but patrol/judgment is human. ~10% automation. Full police automation is far future."
+  },
+  {
+    "job_code": "046",
+    "job_title": "Firefighter",
+    "industry": "Public Safety",
+    "current_automation_pct": 5,
+    "full_auto_year": 2050,
+    "sources": ["&#8203;:contentReference[oaicite:109]{index=109}"],
+    "reasoning": "Robots exist for bomb suits, but firefighting needs human decision. ~5% automation. Full automation is distant."
+  },
+  {
+    "job_code": "047",
+    "job_title": "Farmer/Agricultural Worker",
+    "industry": "Agriculture",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:110]{index=110}"],
+    "reasoning": "Tractors and irrigation are automated (~20%). Crop care still manual. Full auto farming by 2040 or later."
+  },
+  {
+    "job_code": "048",
+    "job_title": "Landscaper/Gardener",
+    "industry": "Agriculture",
+    "current_automation_pct": 20,
+    "full_auto_year": 2045,
+    "sources": ["&#8203;:contentReference[oaicite:111]{index=111}"],
+    "reasoning": "Robotic mowers exist (~20%). Plant care and design are human. Full automation beyond mid-century."
+  },
+  {
+    "job_code": "049",
+    "job_title": "Data Scientist",
+    "industry": "Technology",
+    "current_automation_pct": 30,
+    "full_auto_year": 2035,
+    "sources": ["&#8203;:contentReference[oaicite:112]{index=112}"],
+    "reasoning": "AI can automate parts of data analysis (~30% of tasks), but model interpretation and research are human-driven. Full automation is projected by mid-2030s as analytics tools improve&#8203;:contentReference[oaicite:113]{index=113}."
+  },
+  {
+    "job_code": "050",
+    "job_title": "Administrative Assistant",
+    "industry": "Administrative Support",
+    "current_automation_pct": 60,
+    "full_auto_year": 2030,
+    "sources": ["&#8203;:contentReference[oaicite:114]{index=114}", "&#8203;:contentReference[oaicite:115]{index=115}"],
+    "reasoning": "Many admin tasks (scheduling, data entry) are computerized, ~60% automated. WEF notes administrative support roles are rapidly being automated&#8203;:contentReference[oaicite:116]{index=116}. Software handles routine paperwork, so full automation is possible by ~2030 in many offices."
+  },
+  {
+    "job_code": "051",
+    "job_title": "Project Manager",
+    "industry": "Management",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:117]{index=117}"],
+    "reasoning": "Automation tools help scheduling but leadership requires humans. ~20% automated. Full project management automation is unlikely before 2040."
+  },
+  {
+    "job_code": "052",
+    "job_title": "Marketing Manager",
+    "industry": "Marketing",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:118]{index=118}"],
+    "reasoning": "Tools can automate ad placement and analysis (~20%), but strategy and creative planning still need humans. Full automation by ~2040."
+  },
+  {
+    "job_code": "053",
+    "job_title": "Sales Manager",
+    "industry": "Sales",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:119]{index=119}"],
+    "reasoning": "CRM software automates tracking but leadership and personal selling require humans (~20% automated). Full automation by mid-2030s to 2040."
+  },
+  {
+    "job_code": "054",
+    "job_title": "Actor/Performer",
+    "industry": "Entertainment",
+    "current_automation_pct": 5,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:120]{index=120}"],
+    "reasoning": "AI can generate digital avatars, but real acting relies on human expressiveness. ~5% automated. Full replication of acting talents is not near-term."
+  },
+  {
+    "job_code": "055",
+    "job_title": "Musician",
+    "industry": "Entertainment",
+    "current_automation_pct": 5,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:121]{index=121}"],
+    "reasoning": "AI composes music, but performance and creativity remain human-driven (~5% automated). Full automation is distant."
+  },
+  {
+    "job_code": "056",
+    "job_title": "Artist/Painter",
+    "industry": "Creative",
+    "current_automation_pct": 5,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:122]{index=122}"],
+    "reasoning": "AI generates images but fine art requires human creativity (~5% automated). Full automation far future."
+  },
+  {
+    "job_code": "057",
+    "job_title": "Chef",
+    "industry": "Food Services",
+    "current_automation_pct": 10,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:123]{index=123}"],
+    "reasoning": "Some cooking tasks can be automated (~10%), but creativity and taste require human chefs. Full automation likely by 2040 at earliest."
+  },
+  {
+    "job_code": "058",
+    "job_title": "Real Estate Agent",
+    "industry": "Real Estate",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:124]{index=124}"],
+    "reasoning": "Online platforms show listings (automating ~20% of agent tasks), but personal client advising and negotiations remain human. Full automation of real estate brokerage is unlikely before 2040."
+  },
+  {
+    "job_code": "059",
+    "job_title": "Diesel Mechanic",
+    "industry": "Transportation",
+    "current_automation_pct": 10,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:125]{index=125}"],
+    "reasoning": "Diagnostics are automated, but repairs are manual (~10%). Full automation likely by mid-century."
+  },
+  {
+    "job_code": "060",
+    "job_title": "Air Traffic Controller",
+    "industry": "Aviation",
+    "current_automation_pct": 20,
+    "full_auto_year": 2040,
+    "sources": ["&#8203;:contentReference[oaicite:126]{index=126}"],
+    "reasoning": "Systems automate routing and conflict alerts (~20%), but human controllers are crucial for safety. Full automation not expected before mid-century."
+  }
+]
