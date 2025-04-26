@@ -91,7 +91,12 @@
     main{flex:1;position:relative;height:calc(100% - 56px)}
 
     .view{position:absolute;inset:0;overflow:hidden}
-    #timelineWrap{overflow-x:auto;overflow-y:hidden;cursor:grab}
+    #timelineWrap {
+  overflow-x: auto;
+  overflow-y: auto;     /* ← allow vertical scroll */
+  cursor: grab;
+}
+
     #timelineWrap:active{cursor:grabbing}
 
 
