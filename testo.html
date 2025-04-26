@@ -361,6 +361,15 @@ function horizontal(svg, yMin, yMax) {
   svg.attr('width', W)
      .attr('height', H);
 
+    // ←— add this right here (after setting svg height)
+  const wrap = document.getElementById('timelineWrap');
+  if (H <= wrap.clientHeight) {
+    wrap.style.overflowY = 'hidden';  // no scrollbar when it fits
+  } else {
+    wrap.style.overflowY = 'auto';    // scrollbar only when needed
+  }
+
+
   // 6) draw the full‐height tick‐lines + year labels
   svg.append('g')
      .selectAll('g')
