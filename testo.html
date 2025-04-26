@@ -283,34 +283,32 @@ function buildTimeline(){
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
-  // 1) x scale
+  // 1) make sure the wrapper will scroll vertically
+  const wrap = document.getElementById('timelineWrap');
+  wrap.style.overflowY = 'auto';
+
+  // 2) x scale
   const x = d3.scaleLinear()
               .domain([yMin, yMax])
               .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
 
-  // 2) bucket jobs by full_auto_year
+  // 3) bucket jobs by year
   const buckets = {};
   jobs.forEach(j => {
     (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
   });
 
-  // 3) compute how many rows fit
-  const headerH = document.querySelector('header').offsetHeight;
-  const availH  = window.innerHeight - headerH - TOP_PAD;
-  const rowH    = CARD_H + GAP_V;
-  const rowsPerCol = Math.max(1, Math.floor(availH / rowH));
+  // 4) figure out how tall we really need to go
+  const maxStack = Math.max(...Object.values(buckets).map(arr => arr.length));
+  const headerH  = document.querySelector('header').offsetHeight;
+  const H        = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
+  const W        = x(yMax) + CARD_W + LEFT_PAD;
 
-  // 4) determine overall svg size
-  const neededRows = Math.max(
-    ...Object.values(buckets).map(list => Math.min(list.length, rowsPerCol))
-  );
-  const H = TOP_PAD + neededRows * rowH + 20;
-  const W = (yMax - yMin) * YEAR_PX + LEFT_PAD + CARD_W;
-
+  // 5) size the SVG
   svg.attr('width',  W)
-     .attr('height', Math.max(window.innerHeight - headerH, H));
+     .attr('height', H);
 
-  // 5) draw the year‐ticks & labels
+  // 6) draw the year-ticks & labels
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -326,30 +324,12 @@ function horizontal(svg, yMin, yMax) {
           .text(d => d);
        });
 
-  // 6) render each year’s column stacks, clamped into a ±½ lane
-  const laneHalf = YEAR_PX / 2;
+  // 7) render each year’s cards, one stacked column
   Object.entries(buckets).forEach(([yr, list]) => {
-    const colsNeeded = Math.ceil(list.length / rowsPerCol);
+    list.forEach((j,i) => {
+      const gx = x(+yr) - CARD_W/2;
+      const gy = TOP_PAD + i*(CARD_H + GAP_V);
 
-    list.forEach((j, idx) => {
-      const col = Math.floor(idx / rowsPerCol),
-            row = idx %  rowsPerCol;
-
-      // compute the raw x,y…
-      const totalW = colsNeeded * CARD_W + (colsNeeded - 1) * GAP_H,
-            rawStartX = x(+yr) - totalW / 2,
-            rawGx     = rawStartX + col * (CARD_W + GAP_H),
-            gy        = TOP_PAD + row * rowH;
-
-      // …then clamp the *center* of the card to within its ±½-lane
-      const rawCenterX    = rawGx + CARD_W/2,
-            clampedCenter = Math.min(
-              Math.max(rawCenterX, x(+yr) - laneHalf),
-              x(+yr) + laneHalf
-            ),
-            gx = clampedCenter - CARD_W/2;
-
-      // append the group
       const gEl = svg.append('g')
                      .attr('transform', `translate(${gx},${gy})`)
                      .attr('data-j', j.job_code);
@@ -364,12 +344,10 @@ function horizontal(svg, yMin, yMax) {
          .attr('x', CARD_W/2)
          .attr('y', CARD_H/2 + 5)
          .attr('text-anchor','middle')
-         .text(trunc(j.job_title, 22));
+         .text(trunc(j.job_title,22));
     });
   });
 }
-
-
 
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
