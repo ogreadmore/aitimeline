@@ -361,17 +361,8 @@ function horizontal(svg, yMin, yMax) {
   svg.attr('width', W)
      .attr('height', H);
   const wrap = document.getElementById('timelineWrap');
-const wrapH = wrap.getBoundingClientRect().height;
-wrap.style.overflowY = (H > wrapH ? 'auto' : 'hidden');
-
-
-    // ←— add this right here (after setting svg height)
-  const wrap = document.getElementById('timelineWrap');
-  if (H <= wrap.clientHeight) {
-    wrap.style.overflowY = 'hidden';  // no scrollbar when it fits
-  } else {
-    wrap.style.overflowY = 'auto';    // scrollbar only when needed
-  }
+  const wrapH = wrap.getBoundingClientRect().height;
+  wrap.style.overflowY = (H > wrapH ? 'auto' : 'hidden');
 
 
   // 6) draw the full‐height tick‐lines + year labels
@@ -438,9 +429,10 @@ function vertical(svg,yMin,yMax){
   const H=Math.max(availH,yScale(yMax)+ROWS_PER_COL_M*(CARD_H+GAP_V)+120);
 
   svg.attr('width',W).attr('height',H);
-  const wrap = document.getElementById('timelineWrap');
+const wrap = document.getElementById('timelineWrap');
 const wrapH = wrap.getBoundingClientRect().height;
 wrap.style.overflowY = (H > wrapH ? 'auto' : 'hidden');
+
 
 
   /* ticks */
