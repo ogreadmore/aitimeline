@@ -94,15 +94,15 @@
 
 
 #timelineWrap {
-  overflow-x: auto;   /* horizontal only when needed */
-  overflow-y: hidden; /* never vertical */
+  overflow-x: auto;   /* horizontal scroll only when needed */
+  overflow-y: auto;   /* vertical scroll only when needed */
   cursor: grab;
 }
 
-/* WebKit: horizontal bar only (hide vertical by zero width) */
+/* WebKit browsers (Chrome, Safari): style both axis scrollbars */
 #timelineWrap::-webkit-scrollbar {
-  height: 13px;  /* thickness of horizontal bar */
-  width: 0;      /* hide vertical bar */
+  width: 13px;   /* vertical scrollbar width */
+  height: 13px;  /* horizontal scrollbar height */
 }
 #timelineWrap::-webkit-scrollbar-track {
   background: #1f1f23;
@@ -116,7 +116,7 @@
   background: var(--accent);
 }
 
-/* Firefox: thin horizontal only */
+/* Firefox */
 #timelineWrap {
   scrollbar-width: thin;
   scrollbar-color: var(--scroll) #1f1f23;
