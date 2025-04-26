@@ -271,6 +271,36 @@ g[data-j]:active .job-rect {
       .tick-text { font-size:.8rem; text-anchor:start; }
       .job-text { font-size:.55rem; }
     }
+    .about-scroll {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Scrollbar styles */
+.about-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.about-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.about-scroll::-webkit-scrollbar-thumb {
+  background: #e754e8; /* magenta-ish */
+  border-radius: 4px;
+}
+
+.about-scroll::-webkit-scrollbar-thumb:hover {
+  background: #f27ff2;
+}
+
+/* Firefox support */
+.about-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #e754e8 transparent;
+}
+
   </style>
 </head>
 <body>
@@ -696,7 +726,7 @@ function updateSortArrows(){
     function about(){
       showModal(`
 <h3>About the AI Job Replacement Timeline</h3>
-<div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+<div style="max-height: 400px; overflow-y: auto; padding-right: 10px;" class="about-scroll">
 
 <p><strong>AITimeline.net</strong> is an interactive platform that tracks how artificial intelligence and automation are transforming the workforce. It visualizes expert predictions for when specific jobs are likely to be fully automated — and shows how far automation has already progressed today.</p>
 
