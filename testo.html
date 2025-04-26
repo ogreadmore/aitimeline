@@ -206,6 +206,22 @@ let jobs=[],isMob=false;
 let currentSort={key:'current_automation_pct',asc:false};
 let dataset='jobs.json';           /* single, unique declaration */
 
+/* ----------- DATA LOAD ----------- */
+function fetchAndInit() {
+  fetch(dataset)
+    .then(r => r.json())
+    .then(data => {
+      jobs = Array.isArray(data) ? data
+                                 : Object.values(data).flat();
+      init();                   // build UI
+    })
+    .catch(err => {
+      console.error(dataset, 'missing or unreadable', err);
+      jobs = [];                // fail-safe empty list
+      init();
+    });
+}
+
 /* ----------- UTILITIES ----------- */
 const trunc=(s,l)=>s&&s.length>l? s.slice(0,l-1)+'…':s;
 const find =code=>jobs.find(j=>j.job_code===code);
@@ -518,6 +534,9 @@ function debounce(fn, ms){
 /* ------------- kick-off (first load happens near top) ------------- */
 /* The first `fetchAndInit()` call is executed right after we define it,
    so nothing else is needed down here. */
+
+// kick-off first load
+fetchAndInit();
 </script>
 </body>
 </html>
