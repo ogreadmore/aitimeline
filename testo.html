@@ -627,18 +627,34 @@ function about(){
   showModal(`
 <h3>About the AI Job Replacement Timeline</h3>
 <div class="about-scroll">
-  <p><strong>AITimeline.net</strong> is an interactive platform that tracks how artificial intelligence and automation are transforming the workforce. It visualises expert forecasts for when tasks—and entire job roles—are likely to be automated, and shows current automation progress.</p>
+  <p><strong>AITimeline.net</strong> is your one-stop interactive dashboard for understanding how AI and automation are reshaping today’s workforce. On the <em>Timeline</em> view you’ll see:</p>
+  <ul>
+    <li><strong>Year markers</strong> – each vertical line represents the calendar year when a given role is forecast to reach “full automation.”</li>
+    <li><strong>Job cards</strong> – colored boxes under each year show individual roles; hover or click to see current automation levels, sources, and reasoning.</li>
+    <li><strong>Scroll & zoom</strong> – drag horizontally or pinch-zoom (⌘+scroll) to explore future decades in detail.</li>
+  </ul>
+
+  <p>Switch to the <em>Current State</em> table to see:</p>
+  <ul>
+    <li><strong>Current Automation %</strong> – how much of each role is already handled by machines and AI.</li>
+    <li><strong>Industry</strong> – the sector each job belongs in.</li>
+    <li><strong>Full-Auto Year</strong> – the expert consensus year when humans may no longer be required.</li>
+    <li><strong>Sources & Reasoning</strong> – quick citations and one-to-two-sentence rationale for each forecast.</li>
+    <li><strong>Sortable columns & scrollbar</strong> – click headers to reorder, scroll through the list to compare across industries.</li>
+  </ul>
 
   <h4>Data sources</h4>
   <ul>
-    <li>Peer-reviewed academic studies</li>
-    <li>Technology-vendor &amp; industry research reports</li>
-    <li>Management-consulting forecasts (McKinsey, PwC, BCG, Gartner…)</li>
-    <li>Professional associations (AMA, ABA, AICPA…)</li>
-    <li>Results from real-world pilots in robotics, autonomous vehicles, AI customer service, etc.</li>
+    <li>Peer-reviewed academic studies on task automation and AI capabilities</li>
+    <li>Technology-vendor & industry research (Forrester, Gartner, McKinsey, BCG…)</li>
+    <li>Government & professional association reports (U.S. Department of Labor, AMA, AICPA, IEEE…)</li>
+    <li>Real-world pilot projects in robotics, autonomous vehicles, AI customer service, and more</li>
+    <li>Up-to-date press releases and case studies from leading AI providers (OpenAI, Google, AWS, UiPath…)</li>
   </ul>
 
-  <p>Built by <a href="https://oliphantdigital.com" target="_blank" rel="noopener">Oliphant Digital</a>.</p>
+  <p>You can use the dropdown in the top-right to compare multiple forecast datasets (e.g. ChatGPT 4o vs Gemini).<br>
+     Built and maintained by <a href="https://oliphantdigital.com" target="_blank" rel="noopener">Oliphant Digital</a>. Feedback & updates welcome via <a href="mailto:hello@oliphantdigital.com">hello@oliphantdigital.com</a>.</p>
+
 </div>`);
 }
 
