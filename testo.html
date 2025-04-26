@@ -103,6 +103,27 @@
     #timelineWrap::-webkit-scrollbar-thumb{background:var(--scroll)}
     #timelineWrap:hover::-webkit-scrollbar-thumb{background:var(--accent)}
 
+    /* magenta scrollbars on the “Current State” table */
+#dashWrap::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+#dashWrap::-webkit-scrollbar-track {
+  background: #1f1f23;
+}
+#dashWrap::-webkit-scrollbar-thumb {
+  background: var(--scroll);
+}
+#dashWrap:hover::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+/* firefox */
+#dashWrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) #1f1f23;
+}
+
     /* timeline visuals */
     .tick-line{stroke:#2d2d32;stroke-width:1}
     .tick-text{fill:var(--fg);font-size:.75rem;font-weight:400;text-anchor:middle}
