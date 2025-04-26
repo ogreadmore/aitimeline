@@ -283,32 +283,34 @@ function buildTimeline(){
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
-  // 1) make sure the wrapper will scroll vertically
+  // 1) allow vertical scrolling
   const wrap = document.getElementById('timelineWrap');
   wrap.style.overflowY = 'auto';
 
-  // 2) x scale
+  // 2) compute the visible height (minus header)
+  //    this is how tall our vertical lines will be
+  const visibleH = wrap.clientHeight;
+
+  // 3) x scale
   const x = d3.scaleLinear()
               .domain([yMin, yMax])
               .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
 
-  // 3) bucket jobs by year
+  // 4) bucket jobs by year
   const buckets = {};
   jobs.forEach(j => {
     (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
   });
 
-  // 4) figure out how tall we really need to go
+  // 5) figure out how tall the full SVG must be
   const maxStack = Math.max(...Object.values(buckets).map(arr => arr.length));
-  const headerH  = document.querySelector('header').offsetHeight;
   const H        = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
   const W        = x(yMax) + CARD_W + LEFT_PAD;
 
-  // 5) size the SVG
   svg.attr('width',  W)
      .attr('height', H);
 
-  // 6) draw the year-ticks & labels
+  // 6) draw year‐ticks full‐height (visibleH) + labels
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -316,19 +318,20 @@ function horizontal(svg, yMin, yMax) {
        .attr('transform', d => `translate(${x(d)},0)`)
        .call(g => {
          g.append('line')
-          .attr('class','tick-line')
-          .attr('y1',0).attr('y2',H);
+          .attr('class', 'tick-line')
+          .attr('y1', 0)
+          .attr('y2', visibleH);
          g.append('text')
-          .attr('class','tick-text')
-          .attr('y',18)
+          .attr('class', 'tick-text')
+          .attr('y', 18)
           .text(d => d);
        });
 
-  // 7) render each year’s cards, one stacked column
+  // 7) stack all the job‐cards in a single column per year
   Object.entries(buckets).forEach(([yr, list]) => {
-    list.forEach((j,i) => {
+    list.forEach((j, i) => {
       const gx = x(+yr) - CARD_W/2;
-      const gy = TOP_PAD + i*(CARD_H + GAP_V);
+      const gy = TOP_PAD + i * (CARD_H + GAP_V);
 
       const gEl = svg.append('g')
                      .attr('transform', `translate(${gx},${gy})`)
@@ -348,6 +351,7 @@ function horizontal(svg, yMin, yMax) {
     });
   });
 }
+
 
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
