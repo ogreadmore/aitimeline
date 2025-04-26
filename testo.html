@@ -330,8 +330,9 @@ function buildTimeline(){
   enableDrag();
 }
 
+/* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
-  // 1) x-scale
+  // 1) x‐scale
   const x = d3.scaleLinear()
               .domain([yMin, yMax])
               .range([LEFT_PAD, (yMax - yMin) * YEAR_PX + LEFT_PAD]);
@@ -342,22 +343,25 @@ function horizontal(svg, yMin, yMax) {
     (buckets[j.full_auto_year] = buckets[j.full_auto_year] || []).push(j);
   });
 
-  // 3) stacking
-  const maxStack = Math.max(...Object.values(buckets).map(list => list.length));
+  // 3) figure out how many we stack
+  const maxStack = Math.max(
+    ...Object.values(buckets).map(list => list.length)
+  );
 
-  // 4) content height needed
+  // 4) compute the two candidate heights:
+  //    – contentH: how tall it needs to be to fit all cards
+  //    – minH:    how tall your viewport‐area is (so the ticks always fill screen)
+  const headerH  = document.querySelector('header').offsetHeight;
   const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
+  const minH     = window.innerHeight - headerH;
 
-  // 5) wrapper height
-  const wrapperH = document.getElementById('timelineWrap').clientHeight;
-
-  // 6) final SVG height is whichever is taller
-  const H = Math.max(contentH, wrapperH);
+  // 5) final SVG dimensions
+  const H = Math.max(contentH, minH);
   const W = x(yMax) + CARD_W + LEFT_PAD;
   svg.attr('width', W)
      .attr('height', H);
 
-  // 7) draw tick-lines down to the SVG bottom (now ≥ wrapper height)
+  // 6) draw the full‐height tick‐lines + year labels
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -367,14 +371,14 @@ function horizontal(svg, yMin, yMax) {
          g.append('line')
           .attr('class','tick-line')
           .attr('y1', 0)
-          .attr('y2', H);
+          .attr('y2', H);            // ← span entire SVG
          g.append('text')
           .attr('class','tick-text')
           .attr('y', 18)
           .text(d => d);
        });
 
-  // 8) render your job cards
+  // 7) render each year’s jobs in a single vertical stack
   Object.entries(buckets).forEach(([yr, list]) => {
     list.forEach((j, i) => {
       const gx = x(+yr) - CARD_W / 2;
@@ -398,7 +402,6 @@ function horizontal(svg, yMin, yMax) {
     });
   });
 }
-
 
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
