@@ -91,9 +91,14 @@
     main{flex:1;position:relative;height:calc(100% - 56px)}
 
     .view{position:absolute;inset:0;overflow:hidden}
-    #timelineWrap{overflow-x:auto;overflow-y:hidden;cursor:grab}
+    #timelineWrap {
+  overflow-x: auto;
+  overflow-y: auto;     /* ← allow vertical scroll */
+  cursor: grab;
+}
+
     #timelineWrap:active{cursor:grabbing}
-    @media(max-width:650px){#timelineWrap{overflow-y:auto}}
+
 
     #dashWrap{display:none;overflow:auto;padding:1rem}
 
@@ -633,13 +638,20 @@ function about(){
     <li><strong>Scroll & zoom</strong> – drag horizontally or pinch-zoom (⌘+scroll) to explore future decades in detail.</li>
   </ul>
 
+  <p>The timeline marks when each role is projected to be <strong>fully automated</strong>—meaning over 95% of its core tasks can be carried out without human intervention. These forecasts combine:</p>
+  <ul>
+    <li>Academic benchmarks on AI capability</li>
+    <li>Industry adoption curves from consulting reports</li>
+    <li>Real-world pilot performance (e.g. autonomous vehicles, robotic process automation)</li>
+  </ul>
+
   <p>Switch to the <em>Current State</em> table to see:</p>
   <ul>
     <li><strong>Current Automation State %</strong> – how much of each role is already handled by machines and AI.</li>
     <li><strong>Industry</strong> – the sector each job belongs in.</li>
-    <li><strong>Full-Auto Year</strong> – the synthesized expert consensus year when humans may no longer be required.</li>
+    <li><strong>Full-Auto Year</strong> – the synthesized expert consensus year when humans may no longer be required for the vast majority of tasks.</li>
     <li><strong>Sources & Reasoning</strong> – citations and a one-to-two-sentence rationale for each forecast.</li>
-    <li><strong>Sortable columns </strong> – click headers to reorder, scroll through the list to compare across industries.</li>
+    <li><strong>Sortable columns</strong> – click headers to reorder, scroll through the list to compare across industries.</li>
   </ul>
 
   <h4>Data sources</h4>
@@ -653,7 +665,6 @@ function about(){
 
   <p>You can use the dropdown in the top-right to compare multiple forecast datasets (e.g. ChatGPT 4o vs Gemini).<br>
      Built and maintained by <a href="https://oliphantdigital.com" target="_blank" rel="noopener">Oliphant Digital</a>. Feedback & updates welcome via <a href="mailto:hello@oliphantdigital.com">hello@oliphantdigital.com</a>.</p>
-
 </div>`);
 }
 
