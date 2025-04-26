@@ -282,41 +282,65 @@ function buildTimeline(){
 }
 
 /* --- horizontal layout --- */
+/* ── replace your old horizontal() with this ── */
 function horizontal(svg,yMin,yMax){
-  const x=d3.scaleLinear().domain([yMin,yMax]).range([LEFT_PAD,(yMax-yMin)*YEAR_PX+LEFT_PAD]);
+  const x = d3.scaleLinear()
+              .domain([yMin,yMax])
+              .range([LEFT_PAD,(yMax-yMin)*YEAR_PX+LEFT_PAD]);
 
   /* bucket jobs by year */
-  const buckets={};
-  jobs.forEach(j=>{(buckets[j.full_auto_year]=buckets[j.full_auto_year]||[]).push(j);});
+  const buckets = {};
+  jobs.forEach(j => {
+    (buckets[j.full_auto_year] = buckets[j.full_auto_year]||[]).push(j);
+  });
 
-  const maxStack=Math.max(...Object.values(buckets).map(b=>b.length));
-  const headerH=document.querySelector('header').offsetHeight;
-  const availH=window.innerHeight-headerH;
-  const H=Math.max(availH,TOP_PAD+maxStack*(CARD_H+GAP_V)+20);
-  const W=x(yMax)+CARD_W+LEFT_PAD;
+  /* how many rows fit in the viewport? */
+  const headerH = document.querySelector('header').offsetHeight;
+  const availH  = window.innerHeight - headerH - TOP_PAD;
+  const rowH    = CARD_H + GAP_V;
+  const rowsPerColDesktop = Math.max(1, Math.floor(availH / rowH));
 
-  svg.attr('width',W).attr('height',H);
-
-  /* year ticks */
-  svg.append('g').selectAll('g')
-     .data(d3.range(yMin,yMax+1)).enter().append('g')
-     .attr('transform',d=>`translate(${x(d)},0)`)
-     .call(g=>{
-       g.append('line').attr('class','tick-line').attr('y1',0).attr('y2',H);
-       g.append('text').attr('class','tick-text').attr('y',18).text(d=>d);
-     });
-
-  /* job cards */
+  /* now draw each year */
   Object.entries(buckets).forEach(([yr,list])=>{
-    list.forEach((j,i)=>{
-      const gx=x(+yr)-CARD_W/2, gy=TOP_PAD+i*(CARD_H+GAP_V);
-      const g=svg.append('g').attr('transform',`translate(${gx},${gy})`).attr('data-j',j.job_code);
-      g.append('rect').attr('class','job-rect').attr('width',CARD_W).attr('height',CARD_H);
-      g.append('text').attr('class','job-text').attr('x',CARD_W/2).attr('y',CARD_H/2+5)
-       .attr('text-anchor','middle').text(trunc(j.job_title,22));
+    const colsNeeded = Math.ceil(list.length / rowsPerColDesktop);
+
+    list.forEach((j, idx)=>{
+      const col = Math.floor(idx / rowsPerColDesktop);
+      const row = idx %  rowsPerColDesktop;
+
+      /* center the block of columns around the tick */
+      const totalWidth = colsNeeded * CARD_W + (colsNeeded-1)*GAP_H;
+      const startX     = x(+yr) - totalWidth/2;
+
+      const gx = startX + col*(CARD_W + GAP_H);
+      const gy = TOP_PAD + row*rowH;
+
+      const g = svg.append('g')
+                   .attr('transform', `translate(${gx},${gy})`)
+                   .attr('data-j', j.job_code);
+
+      g.append('rect')
+       .attr('class','job-rect')
+       .attr('width', CARD_W)
+       .attr('height', CARD_H);
+
+      g.append('text')
+       .attr('class','job-text')
+       .attr('x', CARD_W/2)
+       .attr('y', CARD_H/2 + 5)
+       .attr('text-anchor','middle')
+       .text(trunc(j.job_title,22));
     });
   });
+
+  /* adjust svg height so we never run off bottom */
+  const neededRows = Math.max(...Object.values(buckets).map(b=>Math.min(b.length, rowsPerColDesktop)));
+  const H = TOP_PAD + neededRows*rowH + 20;
+  svg.attr('height', Math.max(window.innerHeight-headerH, H));
+  const W = (yMax-yMin)*YEAR_PX + LEFT_PAD + CARD_W;
+  svg.attr('width', W);
 }
+
 /* --- vertical column layout (mobile) --- */
 function vertical(svg,yMin,yMax){
   const YEAR_SPACING=isMob?40:0;
