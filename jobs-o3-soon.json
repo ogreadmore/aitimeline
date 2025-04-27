@@ -358,5 +358,30 @@
     "full_auto_year": 2028,
     "sources": ["Phenom"],
     "reasoning": "72 % of HR teams already use AI for screening; once anti-bias audit tools stabilize, bots will own the entire first-round funnel."
+  },
+    {
+    "job_code": 41,
+    "job_title": "Junior front-end web developer",
+    "industry": "Technology/Software Development",
+    "current_automation_pct": 50,
+    "full_auto_year": 2029,
+    "sources": [
+      "GitHub Copilot productivity study – ZoomInfo (arXiv, 2025)",
+      "McKinsey 'Economic potential of generative AI' (2023)"
+    ],
+    "reasoning": "Generative-AI assistants can already scaffold UI components, styling and tests; by 2029, design-system-aware agents with visual-regression QA are expected to deliver production-ready front-end code end-to-end, eliminating most entry-level tasks."
+  },
+  {
+    "job_code": 42,
+    "job_title": "Junior back-end developer (CRUD & API maintenance)",
+    "industry": "Technology/Software Development",
+    "current_automation_pct": 45,
+    "full_auto_year": 2030,
+    "sources": [
+      "GitHub Copilot productivity study – ZoomInfo (arXiv, 2025)",
+      "Business Insider 'AI coding apocalypse' (2025)",
+      "McKinsey 'State of AI' survey (2024)"
+    ],
+    "reasoning": "LLM agents now generate boilerplate services, database migrations and integration tests; by 2030 fully autonomous pipelines with self-healing tests and observability will handle routine back-end maintenance, leaving only oversight to senior engineers."
   }
 ]
