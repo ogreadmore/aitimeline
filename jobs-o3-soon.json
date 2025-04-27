@@ -383,5 +383,41 @@
       "McKinsey 'State of AI' survey (2024)"
     ],
     "reasoning": "LLM agents now generate boilerplate services, database migrations and integration tests; by 2030 fully autonomous pipelines with self-healing tests and observability will handle routine back-end maintenance, leaving only oversight to senior engineers."
+  },
+  {
+    "job_code": 43,
+    "job_title": "IT help-desk technician (Tier-1)",
+    "industry": "Technology/IT Support",
+    "current_automation_pct": 55,
+    "full_auto_year": 2029,
+    "sources": [
+      "Gartner 'Predicts 2025: Autonomous Digital Workplace Support' (2024)",
+      "Microsoft Digital Employee Experience survey (2025)"
+    ],
+    "reasoning": "Self-service portals, device-management agents and LLM chatbots already solve most password, patch and connectivity tickets; by 2029 closed-loop remediation tools will resolve virtually all Tier-1 issues without human intervention."
+  },
+  {
+    "job_code": 44,
+    "job_title": "Security operations center analyst (Tier-1 alert triage)",
+    "industry": "Cybersecurity",
+    "current_automation_pct": 40,
+    "full_auto_year": 2030,
+    "sources": [
+      "IBM Security X-Force Threat Intelligence Index (2025)",
+      "Splunk 'State of Security Automation' report (2024)"
+    ],
+    "reasoning": "Modern SIEM+SOAR stacks already auto-classify and remediate >50 % of low-severity alerts; advances in large-context LLM reasoning and pretrained threat-intel models are expected to eliminate the routine Tier-1 analyst queue by 2030."
+  },
+  {
+    "job_code": 45,
+    "job_title": "Network operations center (NOC) monitoring technician",
+    "industry": "Telecom/IT Infrastructure",
+    "current_automation_pct": 50,
+    "full_auto_year": 2029,
+    "sources": [
+      "Cisco 'AI-Enabled Networking Vision' white-paper (2024)",
+      "Forrester 'AIOps Drives the Autonomous NOC' (2025)"
+    ],
+    "reasoning": "AIOps platforms increasingly detect, diagnose and auto-remediate network incidents; with intent-based networking rolling out in enterprise cores, human NOC techs will mainly approve escalations—work that vendors aim to remove by 2029."
   }
 ]
