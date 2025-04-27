@@ -1,0 +1,362 @@
+[
+  {
+    "job_code": 1,
+    "job_title": "Telemarketer / outbound phone sales",
+    "industry": "Sales/Customer Service",
+    "current_automation_pct": 70,
+    "full_auto_year": 2027,
+    "sources": ["Will Robots Take My Job?", "VoiceSpin"],
+    "reasoning": "Generative-speech agents already handle scripted calls; call-center spend on voice-bot AI is exploding and regulators now treat AI voices as “robocalls,” signalling a push to full automation once compliance tooling matures."
+  },
+  {
+    "job_code": 2,
+    "job_title": "Data-entry clerk",
+    "industry": "Administrative/Clerical",
+    "current_automation_pct": 65,
+    "full_auto_year": 2026,
+    "sources": ["World Economic Forum", "Flobotics"],
+    "reasoning": "OCR + RPA platforms have commoditised record-keeping; most ERP suites now ship with low-code bots, so remaining manual keystrokes are a short-term clean-up task."
+  },
+  {
+    "job_code": 3,
+    "job_title": "Customer-service representative (tier-1)",
+    "industry": "Customer Service",
+    "current_automation_pct": 50,
+    "full_auto_year": 2028,
+    "sources": ["No Jitter", "Winssolutions"],
+    "reasoning": "80 % of firms say AI already handles basic queries, but long-tail edge cases and tighter CX rules will take another product cycle (~3 years) to iron out."
+  },
+  {
+    "job_code": 4,
+    "job_title": "Cashier / retail checkout",
+    "industry": "Retail",
+    "current_automation_pct": 35,
+    "full_auto_year": 2029,
+    "sources": ["New York Post", "World Economic Forum"],
+    "reasoning": "Computer-vision kiosks are moving from pilot to chain-wide rollout; payments & ID-verification APIs will hit regulatory acceptance near the decade’s end."
+  },
+  {
+    "job_code": 5,
+    "job_title": "Proofreader / copy marker",
+    "industry": "Publishing/Media",
+    "current_automation_pct": 60,
+    "full_auto_year": 2027,
+    "sources": ["Will Robots Take My Job?", "ERIC"],
+    "reasoning": "LLM-driven grammar/style QA already rivals human accuracy in controlled studies; remaining gaps (tone & brand nuance) are being closed by custom fine-tuning."
+  },
+  {
+    "job_code": 6,
+    "job_title": "Transcriptionist",
+    "industry": "Administrative/Clerical",
+    "current_automation_pct": 90,
+    "full_auto_year": 2025,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Speech-to-text WER is <5 % on broadcast English; only privacy & sector-specific jargon keep a sliver of humans in the loop, likely gone within the year."
+  },
+  {
+    "job_code": 7,
+    "job_title": "Receptionist / appointment scheduler",
+    "industry": "Administrative/Clerical",
+    "current_automation_pct": 60,
+    "full_auto_year": 2027,
+    "sources": ["Gaper", "Convin"],
+    "reasoning": "Voice assistants with calendar/API hooks now book >50 % of salon/clinic slots; SME adoption lags but costs are falling fast."
+  },
+  {
+    "job_code": 8,
+    "job_title": "Bookkeeping / payroll clerk",
+    "industry": "Finance/Accounting",
+    "current_automation_pct": 50,
+    "full_auto_year": 2028,
+    "sources": ["World Economic Forum", "DOKKA"],
+    "reasoning": "Invoice-capture AI and rule-based reconciliations already slash manual inputs; tax-compliance APIs should reach full coverage by 2027-28."
+  },
+  {
+    "job_code": 9,
+    "job_title": "Bank teller",
+    "industry": "Finance/Banking",
+    "current_automation_pct": 30,
+    "full_auto_year": 2030,
+    "sources": ["FStech"],
+    "reasoning": "Branch foot-traffic keeps shrinking while mobile KYC & ITMs spread; banks project 200 k job cuts within 5 years driven chiefly by AI ops."
+  },
+  {
+    "job_code": 10,
+    "job_title": "Loan underwriter / consumer credit officer",
+    "industry": "Finance",
+    "current_automation_pct": 40,
+    "full_auto_year": 2029,
+    "sources": ["Winssolutions", "CPG Click Petroleo e Gas"],
+    "reasoning": "End-to-end AI risk scoring is live in fintech; mainstream lenders wait for explainability & fairness audits now being standardised."
+  },
+  {
+    "job_code": 11,
+    "job_title": "Paralegal (entry-level tasks)",
+    "industry": "Legal",
+    "current_automation_pct": 45,
+    "full_auto_year": 2029,
+    "sources": ["Legal Dive", "Clio"],
+    "reasoning": "Contract-analysis LLMs already draft, summarise and schedule; courts are piloting AI document prep, but human oversight will persist for a few more revisions of ethics rules."
+  },
+  {
+    "job_code": 12,
+    "job_title": "Standard contract drafter",
+    "industry": "Legal",
+    "current_automation_pct": 55,
+    "full_auto_year": 2027,
+    "sources": ["Hacked.com", "Clio"],
+    "reasoning": "Template-driven generation + clause libraries handle NDAs and MSAs; liability-safe deployment at scale expected once dataset audits finish."
+  },
+  {
+    "job_code": 13,
+    "job_title": "Market-research survey coder",
+    "industry": "Marketing/Research",
+    "current_automation_pct": 40,
+    "full_auto_year": 2028,
+    "sources": ["LinkedIn"],
+    "reasoning": "LLMs already analyse open-ended survey text; autonomous agent tools will soon run the full survey-to-insights loop with minimal supervision."
+  },
+  {
+    "job_code": 14,
+    "job_title": "Social-media content moderator (first-pass)",
+    "industry": "Media/Content Moderation",
+    "current_automation_pct": 45,
+    "full_auto_year": 2028,
+    "sources": ["Winssolutions"],
+    "reasoning": "Vision-language models flag >90 % obvious policy breaches; policy-edge adjudication and legal liability slow full hand-off but only briefly."
+  },
+  {
+    "job_code": 15,
+    "job_title": "Translator (straightforward text)",
+    "industry": "Language Services",
+    "current_automation_pct": 70,
+    "full_auto_year": 2026,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Multilingual LLMs reach near-human BLEU scores in >50 languages; domain-specific fine-tunes will wipe out most paid translation of generic material."
+  },
+  {
+    "job_code": 16,
+    "job_title": "Medical transcription / scribe",
+    "industry": "Healthcare/Administrative",
+    "current_automation_pct": 75,
+    "full_auto_year": 2026,
+    "sources": ["Will Robots Take My Job?", "Ditto Transcripts"],
+    "reasoning": "HIPAA-compliant speech models are live in major EHRs; error rates already beat human averages, leaving only specialist accents to nail."
+  },
+  {
+    "job_code": 17,
+    "job_title": "Warehouse picker-packer",
+    "industry": "Logistics/Warehousing",
+    "current_automation_pct": 40,
+    "full_auto_year": 2028,
+    "sources": ["Winssolutions", "World Economic Forum"],
+    "reasoning": "AI-vision robots hit human-level speed for >70 % of SKU shapes; battery & safety certs push full site conversions into the 2027-28 window."
+  },
+  {
+    "job_code": 18,
+    "job_title": "Factory assembly-line worker (repetitive)",
+    "industry": "Manufacturing",
+    "current_automation_pct": 55,
+    "full_auto_year": 2028,
+    "sources": ["Winssolutions"],
+    "reasoning": "Cobots now cost < $10/hour equivalent; once re-tooling CAPEX amortises, remaining human posts become supervisors rather than assemblers."
+  },
+  {
+    "job_code": 19,
+    "job_title": "Truck driver (long-haul highway)",
+    "industry": "Transportation",
+    "current_automation_pct": 20,
+    "full_auto_year": 2030,
+    "sources": ["ITF", "Axios"],
+    "reasoning": "Level-4 autonomous platoons are in paid pilots; policy & insurance frameworks targeted for 2028-29, enabling coast-to-coast coverage by 2030."
+  },
+  {
+    "job_code": 20,
+    "job_title": "Delivery courier (urban)",
+    "industry": "Logistics",
+    "current_automation_pct": 25,
+    "full_auto_year": 2030,
+    "sources": ["Vanity Fair", "ITF"],
+    "reasoning": "Sidewalk bots & drone networks already cover last-mile niches; scaling awaits air-traffic & curb-management rules now in draft."
+  },
+  {
+    "job_code": 21,
+    "job_title": "Travel agent / trip-booking rep",
+    "industry": "Travel/Hospitality",
+    "current_automation_pct": 60,
+    "full_auto_year": 2028,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "OTA sites and LLM itinerary bots already handle most bookings; remaining custom trips disappear once vendors open full-stack APIs."
+  },
+  {
+    "job_code": 22,
+    "job_title": "Fast-food counter order-taker",
+    "industry": "Food Service",
+    "current_automation_pct": 50,
+    "full_auto_year": 2027,
+    "sources": ["Restaurant News", "Restaurant Dive"],
+    "reasoning": "Vision & voice kiosks reach majority-customer preference; franchise ROI targets lock in chain-wide roll-outs within two hardware refreshes."
+  },
+  {
+    "job_code": 23,
+    "job_title": "Insurance claims processor",
+    "industry": "Insurance",
+    "current_automation_pct": 45,
+    "full_auto_year": 2029,
+    "sources": ["McKinsey & Company"],
+    "reasoning": "McKinsey shows >50 % of task hours automatable; computer-vision 'photo-to-pay-out' pilots are scaling after regulatory sandboxes mature."
+  },
+  {
+    "job_code": 24,
+    "job_title": "Tax preparer (routine filings)",
+    "industry": "Finance/Accounting",
+    "current_automation_pct": 40,
+    "full_auto_year": 2028,
+    "sources": ["PressRelease.com"],
+    "reasoning": "AI-first tax-workflow suites are doubling market size by 2030; once state e-file APIs standardise, the human convenience premium evaporates."
+  },
+  {
+    "job_code": 25,
+    "job_title": "Junior graphic designer (templated work)",
+    "industry": "Creative/Design",
+    "current_automation_pct": 40,
+    "full_auto_year": 2028,
+    "sources": ["HubSpot Blog"],
+    "reasoning": "Prompt-driven design tools already churn out ads & social creatives; brand-guardrails plus style-transfer close the last quality gaps."
+  },
+  {
+    "job_code": 26,
+    "job_title": "SEO copywriter / basic content writer",
+    "industry": "Marketing/Content",
+    "current_automation_pct": 35,
+    "full_auto_year": 2027,
+    "sources": ["The #1 Ranked AI Writer for SEO", "SEO.AI"],
+    "reasoning": "Long-form LLMs now draft passable SEO copy in minutes; algorithm rewards for 'human' nuance shrink as search shifts to AI results pages."
+  },
+  {
+    "job_code": 27,
+    "job_title": "Test-prep tutor (standardised exams)",
+    "industry": "Education",
+    "current_automation_pct": 30,
+    "full_auto_year": 2029,
+    "sources": ["USA TODAY"],
+    "reasoning": "Adaptive chat-tutors equal human scoring on SAT practice; school districts are piloting AI-only tutoring at 1/20th the cost."
+  },
+  {
+    "job_code": 28,
+    "job_title": "Legal secretary / admin assistant",
+    "industry": "Legal",
+    "current_automation_pct": 45,
+    "full_auto_year": 2028,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Scheduling, filing and form drafting are moving to practice-management LLMs; e-court mandates will complete the transition."
+  },
+  {
+    "job_code": 29,
+    "job_title": "Medical billing & coding specialist",
+    "industry": "Healthcare/Administrative",
+    "current_automation_pct": 50,
+    "full_auto_year": 2028,
+    "sources": ["UTSA"],
+    "reasoning": "HIPAA-cleared NLP extracts codes directly from notes; payer AI rejects fewer claims than humans, accelerating provider uptake."
+  },
+  {
+    "job_code": 30,
+    "job_title": "Reporter of data-driven news briefs",
+    "industry": "Media/Journalism",
+    "current_automation_pct": 25,
+    "full_auto_year": 2028,
+    "sources": ["The Washington Post"],
+    "reasoning": "Auto-newswire bots already write earnings & box-scores; newsroom cost-cuts plus improved fact-checking workflows usher in full adoption."
+  },
+  {
+    "job_code": 31,
+    "job_title": "Retail stock / FX trader",
+    "industry": "Finance/Trading",
+    "current_automation_pct": 30,
+    "full_auto_year": 2029,
+    "sources": ["Morningstar"],
+    "reasoning": "AI robo-advisors and zero-latency brokerage APIs outperform average retail traders; regulators are moving to supervise fully-autonomous strategies."
+  },
+  {
+    "job_code": 32,
+    "job_title": "Manual software QA tester",
+    "industry": "Technology/Software Testing",
+    "current_automation_pct": 35,
+    "full_auto_year": 2028,
+    "sources": ["Medium"],
+    "reasoning": "Self-healing test suites and code-gen agents now cover most regression cases; human testers shift to oversight only."
+  },
+  {
+    "job_code": 33,
+    "job_title": "Security guard (CCTV monitor)",
+    "industry": "Security",
+    "current_automation_pct": 40,
+    "full_auto_year": 2028,
+    "sources": ["Mobile Video Guard"],
+    "reasoning": "Vision models flag anomalies with >95 % precision; insurers begin discounting AI-guarded sites, driving mass switch-over."
+  },
+  {
+    "job_code": 34,
+    "job_title": "Parking-enforcement officer",
+    "industry": "Public Sector/Transportation",
+    "current_automation_pct": 30,
+    "full_auto_year": 2029,
+    "sources": ["Tattile"],
+    "reasoning": "ANPR cameras plus auto-ticket systems are already live in smart-city pilots; wider deployment waits only on procurement cycles."
+  },
+  {
+    "job_code": 35,
+    "job_title": "Programmatic media buyer / ad trader",
+    "industry": "Marketing/Advertising",
+    "current_automation_pct": 60,
+    "full_auto_year": 2027,
+    "sources": ["omeda.com"],
+    "reasoning": "Buying desks are now algorithmic; humans mainly audit brand-safety—tasks next on vendors’ LLM roadmaps."
+  },
+  {
+    "job_code": 36,
+    "job_title": "Library assistant / technician (clerical)",
+    "industry": "Library/Information Science",
+    "current_automation_pct": 30,
+    "full_auto_year": 2029,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Self-checkout, RFID inventory drones and LLM reference chat cut desk time; budget-strapped systems retire remaining clerks first."
+  },
+  {
+    "job_code": 37,
+    "job_title": "Call-center QA analyst (call audits)",
+    "industry": "Customer Service/Quality Assurance",
+    "current_automation_pct": 40,
+    "full_auto_year": 2027,
+    "sources": ["NICE AI Solutions"],
+    "reasoning": "Speech-analytics tools already auto-score 100 % of calls for compliance; human sampling becomes redundant as accuracy climbs."
+  },
+  {
+    "job_code": 38,
+    "job_title": "Pharmacy technician (dispensing tasks)",
+    "industry": "Healthcare/Pharmacy",
+    "current_automation_pct": 35,
+    "full_auto_year": 2029,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Hospital robot dispensaries and Amazon-style fulfilment hubs scale once FDA clears broader autonomous dispensing rules."
+  },
+  {
+    "job_code": 39,
+    "job_title": "Architectural drafter (CAD detailing)",
+    "industry": "Architecture/Engineering",
+    "current_automation_pct": 20,
+    "full_auto_year": 2030,
+    "sources": ["Will Robots Take My Job?"],
+    "reasoning": "Generative-design BIM plugins now lay out code-compliant floorplans; firms expect full hand-off after next-gen regulation checks."
+  },
+  {
+    "job_code": 40,
+    "job_title": "HR resume screener / interview scheduler",
+    "industry": "Human Resources",
+    "current_automation_pct": 60,
+    "full_auto_year": 2028,
+    "sources": ["Phenom"],
+    "reasoning": "72 % of HR teams already use AI for screening; once anti-bias audit tools stabilize, bots will own the entire first-round funnel."
+  }
+]
