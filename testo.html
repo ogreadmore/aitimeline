@@ -270,7 +270,7 @@ const CARD_W=160,CARD_H=40,
 /* ----------- STATE ----------- */
 let jobs=[],isMob=false;
 let currentSort={key:'current_automation_pct',asc:false};
-let dataset='jobs.json';           /* single, unique declaration */
+let dataset = document.getElementById('datasetSelect').value;
 
 /* ----------- DATA LOAD ----------- */
 function fetchAndInit () {
