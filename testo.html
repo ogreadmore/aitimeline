@@ -320,15 +320,22 @@ const init=()=>{
 
 /* ============== TIMELINE SVG ============== */
 function buildTimeline(){
-  const svg=d3.select('#timelineSVG');
+  const svg = d3.select('#timelineSVG');
   svg.selectAll('*').remove();
 
-  const years=jobs.map(j=>j.full_auto_year).filter(Boolean);
-  const yMin=Math.min(...years),yMax=Math.max(...years);
-  isMob?vertical(svg,yMin,yMax):horizontal(svg,yMin,yMax);
+  const years = jobs.map(j => j.full_auto_year).filter(Boolean);
+  const yMin = Math.min(...years), yMax = Math.max(...years);
+
+  isMob ? vertical(svg, yMin, yMax) : horizontal(svg, yMin, yMax);
   attachCardEvents();
   enableDrag();
+
+  /* ─── NEW: auto-disable vertical scroll if not needed ─── */
+  const wrap = document.getElementById('timelineWrap');
+  const needsVerticalScroll = wrap.scrollHeight > wrap.clientHeight;
+  wrap.style.overflowY = needsVerticalScroll ? 'auto' : 'hidden';
 }
+
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
