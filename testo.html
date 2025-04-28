@@ -96,11 +96,6 @@
   overflow-y: auto;     /* ← allow vertical scroll */
   cursor: grab;
 }
-    /* only shorten the timeline scroll‐area by 20px at the bottom */
-.view#timelineWrap {
-  /* inset: top right bottom left */
-  inset: 0 0 20px 0;
-}
 
     #timelineWrap:active{cursor:grabbing}
 
@@ -593,15 +588,14 @@ function updateSortArrows(){
 }
 
 /* -------- timeline drag / zoom -------- */
-/* -------- timeline drag / zoom -------- */
 function enableDrag(){
   const wrap = document.getElementById('timelineWrap');
   let down = false, startX, startY, startLeft, startTop;
 
   wrap.onmousedown = e => {
-    down = true;
-    startX = e.pageX;
-    startY = e.pageY;
+    down      = true;
+    startX    = e.pageX;
+    startY    = e.pageY;
     startLeft = wrap.scrollLeft;
     startTop  = wrap.scrollTop;
     wrap.style.cursor = 'grabbing';
@@ -610,13 +604,12 @@ function enableDrag(){
   wrap.onmousemove = e => {
     if (!down) return;
 
-    // Horizontal always
+    // Always pan horizontally
     const dx = e.pageX - startX;
     wrap.scrollLeft = startLeft - dx;
 
-    // Vertical only on desktop *and* if vertical scrollbar present
-    const hasVScroll = wrap.scrollHeight > wrap.clientHeight;
-    if (!isMob && hasVScroll) {
+    // Only pan vertically if content is taller than the container
+    if (wrap.scrollHeight > wrap.clientHeight) {
       const dy = e.pageY - startY;
       wrap.scrollTop = startTop - dy;
     }
@@ -631,11 +624,10 @@ function enableDrag(){
     if (!e.ctrlKey) return;
     e.preventDefault();
     const svg = wrap.querySelector('svg');
-    const z = wrap._z || 1;
-    const next = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
-    wrap._z = next;
+    const z   = wrap._z || 1;
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : 0.9)));
     svg.style.transformOrigin = '0 0';
-    svg.style.transform = `scale(${next})`;
+    svg.style.transform       = `scale(${wrap._z})`;
   }, { passive: false });
 }
 
