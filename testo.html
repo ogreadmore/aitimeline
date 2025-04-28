@@ -96,6 +96,11 @@
   overflow-y: auto;     /* ← allow vertical scroll */
   cursor: grab;
 }
+    /* only shorten the timeline scroll‐area by 20px at the bottom */
+.view#timelineWrap {
+  /* inset: top right bottom left */
+  inset: 0 0 20px 0;
+}
 
     #timelineWrap:active{cursor:grabbing}
 
