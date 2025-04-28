@@ -589,20 +589,50 @@ function updateSortArrows(){
 
 /* -------- timeline drag / zoom -------- */
 function enableDrag(){
-  const wrap=document.getElementById('timelineWrap');
-  let down=false,startX,startLeft;
-  wrap.onmousedown=e=>{down=true;startX=e.pageX;startLeft=wrap.scrollLeft;};
-  wrap.onmousemove=e=>{if(down) wrap.scrollLeft=startLeft-(e.pageX-startX);};
-  document.onmouseup=_=>down=false;
-  wrap.addEventListener('wheel',e=>{
-    if(!e.ctrlKey) return;
+  const wrap = document.getElementById('timelineWrap');
+  let down = false;
+  let startX = 0, startY = 0;
+  let origScrollLeft = 0, origScrollTop = 0;
+  let allowVert = false;
+
+  wrap.onmousedown = e => {
+    down = true;
+    startX = e.pageX;
+    startY = e.pageY;
+    origScrollLeft = wrap.scrollLeft;
+    origScrollTop  = wrap.scrollTop;
+    // only allow vertical dragging if content actually overflows
+    allowVert = wrap.scrollHeight > wrap.clientHeight;
+    wrap.style.cursor = 'grabbing';
+  };
+
+  wrap.onmousemove = e => {
+    if (!down) return;
+    // always pan horizontally
+    wrap.scrollLeft = origScrollLeft - (e.pageX - startX);
+    // only pan vertically when there's overflow
+    if (allowVert) {
+      wrap.scrollTop = origScrollTop - (e.pageY - startY);
+    }
+  };
+
+  document.onmouseup = () => {
+    down = false;
+    wrap.style.cursor = 'grab';
+  };
+
+  // leave pinch-zoom / ctrl+wheel zoom untouched
+  wrap.addEventListener('wheel', e => {
+    if (!e.ctrlKey) return;
     e.preventDefault();
-    const svg=wrap.querySelector('svg');
-    const z=wrap._z||1;
-    const next=Math.max(.5,Math.min(3,z*(e.deltaY<0?1.1:.9)));
-    wrap._z=next; svg.style.transformOrigin='0 0'; svg.style.transform=`scale(${next})`;
-  },{passive:false});
+    const svg = wrap.querySelector('svg');
+    const z   = wrap._z || 1;
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
+    svg.style.transformOrigin = '0 0';
+    svg.style.transform       = `scale(${wrap._z})`;
+  }, { passive:false });
 }
+
 
 /* -------- nav bar -------- */
 function navInit(){
