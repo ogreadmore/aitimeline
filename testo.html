@@ -372,7 +372,7 @@ function horizontal(svg, yMin, yMax) {
          g.append('line')
           .attr('class', 'tick-line')
           .attr('y1', 0)
-          .attr('y2', H);
+          .attr('y2', wrap.clientHeight);   // clamp to viewport height
          g.append('text')
           .attr('class', 'tick-text')
           .attr('y', 18)
