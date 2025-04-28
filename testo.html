@@ -334,7 +334,7 @@ function buildTimeline(){
 function horizontal(svg, yMin, yMax) {
   // Grab the wrapper and its inner height
   const wrap     = document.getElementById('timelineWrap');
-  const wrapperH = wrap.clientHeight;
+  const wrapperH = wrap.getBoundingClientRect().height;
 
   // 1) X‐scale from year to pixels
   const x = d3.scaleLinear()
@@ -351,7 +351,7 @@ function horizontal(svg, yMin, yMax) {
   const maxStack = Math.max(...Object.values(buckets).map(list => list.length));
 
   // 4) How tall the SVG _needs_ to be to show every card
-  const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V);
+  const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
 
   // 5) Final SVG height: the bigger of contentH and wrapperH
   const H = Math.max(contentH, wrapperH);
@@ -588,56 +588,21 @@ function updateSortArrows(){
 }
 
 /* -------- timeline drag / zoom -------- */
-function enableDrag () {
-  const wrap = document.getElementById('timelineWrap');
-
-  let down = false, startX = 0, startY = 0, startL = 0, startT = 0;
-  const pt  = e => (e.touches ? e.touches[0] : e);
-
-  function handleDown (e) {
-    const p = pt(e);
-    down   = true;
-    startX = p.pageX;
-    startY = p.pageY;
-    startL = wrap.scrollLeft;
-    startT = wrap.scrollTop;
-    wrap.style.cursor = 'grabbing';
-  }
-
-  function handleMove (e) {
-    if (!down) return;
+function enableDrag(){
+  const wrap=document.getElementById('timelineWrap');
+  let down=false,startX,startLeft;
+  wrap.onmousedown=e=>{down=true;startX=e.pageX;startLeft=wrap.scrollLeft;};
+  wrap.onmousemove=e=>{if(down) wrap.scrollLeft=startLeft-(e.pageX-startX);};
+  document.onmouseup=_=>down=false;
+  wrap.addEventListener('wheel',e=>{
+    if(!e.ctrlKey) return;
     e.preventDefault();
-
-    const p  = pt(e);
-    const dx = p.pageX - startX;
-    const dy = p.pageY - startY;
-
-    /* always pan horizontally */
-    wrap.scrollLeft = startL - dx;
-
-    /* pan vertically only if real extra content */
-    if (wrap.scrollHeight - wrap.offsetHeight > 1) {
-      wrap.scrollTop = startT - dy;
-    }
-  }
-
-  const handleUp = () => { down = false; wrap.style.cursor = 'grab'; };
-
-  /* mouse */
-  wrap.addEventListener('mousedown', handleDown);
-  wrap.addEventListener('mousemove', handleMove);
-  document.addEventListener('mouseup', handleUp);
-
-  /* touch */
-  wrap.addEventListener('touchstart', handleDown, { passive: true });
-  wrap.addEventListener('touchmove',  handleMove, { passive: false });
-  wrap.addEventListener('touchend',   handleUp);
-  wrap.addEventListener('touchcancel',handleUp);
-
-  /* preserve pinch / ⌘-wheel zoom … left as-is */
+    const svg=wrap.querySelector('svg');
+    const z=wrap._z||1;
+    const next=Math.max(.5,Math.min(3,z*(e.deltaY<0?1.1:.9)));
+    wrap._z=next; svg.style.transformOrigin='0 0'; svg.style.transform=`scale(${next})`;
+  },{passive:false});
 }
-
-
 
 /* -------- nav bar -------- */
 function navInit(){
