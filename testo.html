@@ -592,27 +592,30 @@ function enableDrag(){
   const wrap = document.getElementById('timelineWrap');
   let down = false;
   let startX = 0, startY = 0;
-  let origScrollLeft = 0, origScrollTop = 0;
+  let origLeft = 0, origTop = 0;
   let allowVert = false;
 
   wrap.onmousedown = e => {
     down = true;
     startX = e.pageX;
     startY = e.pageY;
-    origScrollLeft = wrap.scrollLeft;
-    origScrollTop  = wrap.scrollTop;
-    // only allow vertical dragging if content actually overflows
-    allowVert = wrap.scrollHeight > wrap.clientHeight;
+    origLeft = wrap.scrollLeft;
+    origTop  = wrap.scrollTop;
     wrap.style.cursor = 'grabbing';
+
+    // compute the exact overflow in px
+    const overflowY = wrap.scrollHeight - wrap.clientHeight;
+    // only allow vertical drag if there's more than, say, 5px of overflow
+    allowVert = overflowY > 5;
   };
 
   wrap.onmousemove = e => {
     if (!down) return;
     // always pan horizontally
-    wrap.scrollLeft = origScrollLeft - (e.pageX - startX);
-    // only pan vertically when there's overflow
+    wrap.scrollLeft = origLeft - (e.pageX - startX);
+    // pan vertically only if we've got real overflow
     if (allowVert) {
-      wrap.scrollTop = origScrollTop - (e.pageY - startY);
+      wrap.scrollTop = origTop - (e.pageY - startY);
     }
   };
 
@@ -621,7 +624,7 @@ function enableDrag(){
     wrap.style.cursor = 'grab';
   };
 
-  // leave pinch-zoom / ctrl+wheel zoom untouched
+  // leave your pinch-zoom / ctrl+wheel zoom as-is
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
