@@ -334,7 +334,7 @@ function buildTimeline(){
 function horizontal(svg, yMin, yMax) {
   // Grab the wrapper and its inner height
   const wrap     = document.getElementById('timelineWrap');
-  const wrapperH = wrap.getBoundingClientRect().height;
+  const wrapperH = wrap.clientHeight;   // interior height only
 
   // 1) X‐scale from year to pixels
   const x = d3.scaleLinear()
