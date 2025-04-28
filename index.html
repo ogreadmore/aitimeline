@@ -228,9 +228,9 @@
 
 <!-- dataset switcher -->
 <select id="datasetSelect">
-  <option value="jobs.json" selected>ChatGPT 4o 4/25</option>
-  <option value="jobs-o3-soon.json">ChatGPT o3 2025-30 4/25</option>
-  <option value="jobs-o3.json">ChatGPT o3 4/25</option>
+  <option value="jobs-o3-soon.json" selected>ChatGPT o3 2025-2030 4/25</option>
+  <option value="jobs.json">ChatGPT 4o Full Scope 4/25</option>
+  <option value="jobs-o3.json">ChatGPT o3 Full Scope 4/25</option>
 </select>
     </nav>
   </header>
@@ -270,7 +270,7 @@ const CARD_W=160,CARD_H=40,
 /* ----------- STATE ----------- */
 let jobs=[],isMob=false;
 let currentSort={key:'current_automation_pct',asc:false};
-let dataset='jobs.json';           /* single, unique declaration */
+let dataset = document.getElementById('datasetSelect').value;
 
 /* ----------- DATA LOAD ----------- */
 function fetchAndInit () {
