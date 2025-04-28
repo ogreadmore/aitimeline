@@ -270,7 +270,7 @@ const CARD_W=160,CARD_H=40,
 /* ----------- STATE ----------- */
 let jobs=[],isMob=false;
 let currentSort={key:'current_automation_pct',asc:false};
-let dataset='jobs.json';           /* single, unique declaration */
+let dataset = document.getElementById('datasetSelect').value;
 
 /* ----------- DATA LOAD ----------- */
 function fetchAndInit () {
@@ -587,22 +587,71 @@ function updateSortArrows(){
   });
 }
 
-/* -------- timeline drag / zoom -------- */
-function enableDrag(){
-  const wrap=document.getElementById('timelineWrap');
-  let down=false,startX,startLeft;
-  wrap.onmousedown=e=>{down=true;startX=e.pageX;startLeft=wrap.scrollLeft;};
-  wrap.onmousemove=e=>{if(down) wrap.scrollLeft=startLeft-(e.pageX-startX);};
-  document.onmouseup=_=>down=false;
-  wrap.addEventListener('wheel',e=>{
-    if(!e.ctrlKey) return;
-    e.preventDefault();
-    const svg=wrap.querySelector('svg');
-    const z=wrap._z||1;
-    const next=Math.max(.5,Math.min(3,z*(e.deltaY<0?1.1:.9)));
-    wrap._z=next; svg.style.transformOrigin='0 0'; svg.style.transform=`scale(${next})`;
-  },{passive:false});
+/* -------- timeline drag / zoom (pan on both axes) -------- */
+function enableDrag () {
+  const wrap = document.getElementById('timelineWrap');
+
+  let down   = false,
+      startX = 0,
+      startY = 0,
+      startL = 0,
+      startT = 0;
+
+  /* helpers that work for mouse or touch */
+  function getPos (e) {
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.pageX, y: p.pageY };
+  }
+
+  /* ── pointer down ───────────────── */
+  function handleDown (e) {
+    down   = true;
+    const { x, y } = getPos(e);
+    startX = x;           // where the drag started
+    startY = y;
+    startL = wrap.scrollLeft;
+    startT = wrap.scrollTop;
+  }
+
+  /* ── pointer move ───────────────── */
+  function handleMove (e) {
+    if (!down) return;
+    e.preventDefault();                 // stop text-select → smoother pan
+    const { x, y } = getPos(e);
+    wrap.scrollLeft = startL - (x - startX);
+    wrap.scrollTop  = startT - (y - startY);
+  }
+
+  /* ── pointer up / leave ─────────── */
+  function handleUp () { down = false; }
+
+  /* mouse */
+  wrap.addEventListener('mousedown', handleDown);
+  wrap.addEventListener('mousemove', handleMove);
+  document.addEventListener('mouseup', handleUp);
+
+  /* touch */
+  wrap.addEventListener('touchstart', handleDown, { passive: true });
+  wrap.addEventListener('touchmove',  handleMove, { passive: false });
+  wrap.addEventListener('touchend',   handleUp);
+
+  /* keep the existing pinch-zoom (⌘/Ctrl + wheel) */
+  wrap.addEventListener(
+    'wheel',
+    e => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const svg  = wrap.querySelector('svg');
+      const z    = wrap._z || 1;
+      const next = Math.max(0.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : 0.9)));
+      wrap._z = next;
+      svg.style.transformOrigin = '0 0';
+      svg.style.transform = `scale(${next})`;
+    },
+    { passive: false }
+  );
 }
+
 
 /* -------- nav bar -------- */
 function navInit(){
