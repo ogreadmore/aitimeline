@@ -364,18 +364,30 @@ function horizontal(svg, yMin, yMax) {
 
   // 7) Draw the year tick‐lines down 90% of the height
   const tickH = H * 0.9;
-  svg.append('g')
-     .selectAll('g')
-     .data(d3.range(yMin, yMax + 1))
-     .enter().append('g')
-       .attr('transform', d => `translate(${x(d)},0)`)
-       .call(g => {
-         g.append('line')
-          .attr('class', 'tick-line')
-          .attr('y1', 0)
-          .attr('y2', tickH);
-         …
-       });
+// New 90%-height tick lines
+const tickH = H * 0.9;
+
+svg.append('g')
+   .selectAll('g')
+   .data(d3.range(yMin, yMax + 1))
+   .enter().append('g')
+     .attr('transform', d => `translate(${x(d)},0)`)
+     .each(function(d) {
+       // draw line
+       d3.select(this)
+         .append('line')
+         .attr('class', 'tick-line')
+         .attr('y1', 0)
+         .attr('y2', tickH);
+
+       // draw label
+       d3.select(this)
+         .append('text')
+         .attr('class', 'tick-text')
+         .attr('y', 18)
+         .text(d);
+     });
+
 
 
   // 8) Render each year’s job cards in a vertical stack
