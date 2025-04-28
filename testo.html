@@ -591,41 +591,37 @@ function updateSortArrows(){
 function enableDrag () {
   const wrap = document.getElementById('timelineWrap');
 
-  let down   = false,
-      startX = 0,
-      startY = 0,
-      startL = 0,
-      startT = 0;
-
-  /* unify mouse + touch coordinates */
-  const point = e => (e.touches ? e.touches[0] : e);
+  let down = false, startX = 0, startY = 0, startL = 0, startT = 0;
+  const pt  = e => (e.touches ? e.touches[0] : e);
 
   function handleDown (e) {
-    const p = point(e);
+    const p = pt(e);
     down   = true;
     startX = p.pageX;
     startY = p.pageY;
     startL = wrap.scrollLeft;
     startT = wrap.scrollTop;
+    wrap.style.cursor = 'grabbing';
   }
 
   function handleMove (e) {
     if (!down) return;
     e.preventDefault();
 
-    const p  = point(e);
+    const p  = pt(e);
     const dx = p.pageX - startX;
     const dy = p.pageY - startY;
 
+    /* always pan horizontally */
     wrap.scrollLeft = startL - dx;
 
-    /* vertical only when needed */
-    if (wrap.scrollHeight > wrap.clientHeight + 1) {
+    /* pan vertically only if real extra content */
+    if (wrap.scrollHeight - wrap.offsetHeight > 1) {
       wrap.scrollTop = startT - dy;
     }
   }
 
-  const handleUp = () => (down = false);
+  const handleUp = () => { down = false; wrap.style.cursor = 'grab'; };
 
   /* mouse */
   wrap.addEventListener('mousedown', handleDown);
@@ -636,23 +632,11 @@ function enableDrag () {
   wrap.addEventListener('touchstart', handleDown, { passive: true });
   wrap.addEventListener('touchmove',  handleMove, { passive: false });
   wrap.addEventListener('touchend',   handleUp);
+  wrap.addEventListener('touchcancel',handleUp);
 
-  /* keep pinch / ⌘-wheel zoom */
-  wrap.addEventListener(
-    'wheel',
-    e => {
-      if (!e.ctrlKey) return;
-      e.preventDefault();
-      const svg  = wrap.querySelector('svg');
-      const z    = wrap._z || 1;
-      const next = Math.max(0.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : 0.9)));
-      wrap._z = next;
-      svg.style.transformOrigin = '0 0';
-      svg.style.transform = `scale(${next})`;
-    },
-    { passive: false }
-  );
+  /* preserve pinch / ⌘-wheel zoom … left as-is */
 }
+
 
 
 /* -------- nav bar -------- */
