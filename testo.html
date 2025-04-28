@@ -590,17 +590,12 @@ function updateSortArrows(){
 /* -------- timeline drag / zoom -------- */
 function enableDrag(){
   const wrap = document.getElementById('timelineWrap');
-  let down = false;
-  let startX, startY, startLeft, startTop;
+  let down = false, startX, startY, startLeft, startTop;
   let allowVert = false;
 
   wrap.addEventListener('mousedown', e => {
-    // horizontally we always pan, vertically we only pan if the browser
-    // will actually let us scroll.  Test that by trying to set scrollTop:
-    const prevTop = wrap.scrollTop;
-    wrap.scrollTop = 1;
-    allowVert = wrap.scrollTop === 1;
-    wrap.scrollTop = prevTop;
+    // decide once if there's vertical overflow
+    allowVert = wrap.scrollHeight > wrap.clientHeight;
 
     down      = true;
     startX    = e.pageX;
@@ -612,15 +607,11 @@ function enableDrag(){
 
   document.addEventListener('mousemove', e => {
     if (!down) return;
-
     // always pan horizontally
-    const dx = e.pageX - startX;
-    wrap.scrollLeft = startLeft - dx;
-
-    // only pan vertically if we really have a vertical scroll to grab
+    wrap.scrollLeft = startLeft - (e.pageX - startX);
+    // only pan vertically if the wrapper is actually scrollable
     if (allowVert) {
-      const dy = e.pageY - startY;
-      wrap.scrollTop = startTop - dy;
+      wrap.scrollTop = startTop - (e.pageY - startY);
     }
   });
 
@@ -629,18 +620,17 @@ function enableDrag(){
     wrap.style.cursor = 'grab';
   });
 
-  // leave your pinch-zoom / ctrl+wheel zoom alone
+  // leave pinch-zoom / ctrl+wheel zoom alone
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
     const svg = wrap.querySelector('svg');
     const z   = wrap._z || 1;
-    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY<0 ? 1.1 : .9)));
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
     svg.style.transformOrigin = '0 0';
     svg.style.transform       = `scale(${wrap._z})`;
-  }, { passive:false });
+  }, { passive: false });
 }
-
 
 
 /* -------- nav bar -------- */
