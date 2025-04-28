@@ -596,21 +596,62 @@ function updateSortArrows(){
 }
 
 /* -------- timeline drag / zoom -------- */
-function enableDrag(){
-  const wrap=document.getElementById('timelineWrap');
-  let down=false,startX,startLeft;
-  wrap.onmousedown=e=>{down=true;startX=e.pageX;startLeft=wrap.scrollLeft;};
-  wrap.onmousemove=e=>{if(down) wrap.scrollLeft=startLeft-(e.pageX-startX);};
-  document.onmouseup=_=>down=false;
-  wrap.addEventListener('wheel',e=>{
-    if(!e.ctrlKey) return;
+function enableDrag() {
+  const wrap = document.getElementById('timelineWrap');
+  let isDragging = false;
+  let startX = 0, startY = 0;
+  let origScrollLeft = 0, origScrollTop = 0;
+  let allowVert = false;
+
+  wrap.addEventListener('mousedown', e => {
+    // Check *right now* whether the wrapper can scroll vertically
+    allowVert = wrap.scrollHeight > wrap.clientHeight;
+
+    isDragging       = true;
+    startX           = e.pageX;
+    startY           = e.pageY;
+    origScrollLeft   = wrap.scrollLeft;
+    origScrollTop    = wrap.scrollTop;
+    wrap.style.cursor = 'grabbing';
+
+    // Hook up move/up listeners
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup',   onMouseUp);
+  });
+
+  function onMouseMove(e) {
+    if (!isDragging) return;
+    const dx = e.pageX - startX;
+    const dy = e.pageY - startY;
+
+    // Always pan horizontally
+    wrap.scrollLeft = origScrollLeft - dx;
+
+    // Only pan vertically if there really *is* overflow
+    if (allowVert) {
+      wrap.scrollTop = origScrollTop - dy;
+    }
+  }
+
+  function onMouseUp() {
+    isDragging       = false;
+    wrap.style.cursor = 'grab';
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup',   onMouseUp);
+  }
+
+  // Keep pinch-zoom / ctrl+wheel intact
+  wrap.addEventListener('wheel', e => {
+    if (!e.ctrlKey) return;
     e.preventDefault();
-    const svg=wrap.querySelector('svg');
-    const z=wrap._z||1;
-    const next=Math.max(.5,Math.min(3,z*(e.deltaY<0?1.1:.9)));
-    wrap._z=next; svg.style.transformOrigin='0 0'; svg.style.transform=`scale(${next})`;
-  },{passive:false});
+    const svg = wrap.querySelector('svg');
+    const z   = wrap._z || 1;
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
+    svg.style.transformOrigin = '0 0';
+    svg.style.transform       = `scale(${wrap._z})`;
+  }, { passive:false });
 }
+
 
 /* -------- nav bar -------- */
 function navInit(){
