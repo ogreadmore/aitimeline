@@ -320,15 +320,29 @@ const init=()=>{
 
 /* ============== TIMELINE SVG ============== */
 function buildTimeline(){
-  const svg=d3.select('#timelineSVG');
+  const svg = d3.select('#timelineSVG');
   svg.selectAll('*').remove();
 
-  const years=jobs.map(j=>j.full_auto_year).filter(Boolean);
-  const yMin=Math.min(...years),yMax=Math.max(...years);
-  isMob?vertical(svg,yMin,yMax):horizontal(svg,yMin,yMax);
+  const years = jobs.map(j => j.full_auto_year).filter(Boolean);
+  const yMin  = Math.min(...years),
+        yMax  = Math.max(...years);
+
+  if (isMob) {
+    vertical(svg, yMin, yMax);
+  } else {
+    horizontal(svg, yMin, yMax);
+  }
+
   attachCardEvents();
   enableDrag();
+
+  // ── NEW: clamp native scroll behavior ───────────
+  const wrap     = document.getElementById('timelineWrap');
+  const hasV     = wrap.scrollHeight > wrap.clientHeight;
+  wrap.style.overflowY          = hasV ? 'auto' : 'hidden';
+  wrap.style.overscrollBehavior = 'none';      // disable any OS “pull” beyond edges
 }
+
 
 /* --- horizontal layout --- */
 function horizontal(svg, yMin, yMax) {
@@ -604,14 +618,12 @@ function enableDrag(){
   wrap.onmousemove = e => {
     if (!down) return;
 
-    // Always pan horizontally
-    const dx = e.pageX - startX;
-    wrap.scrollLeft = startLeft - dx;
+    // always pan horizontally
+    wrap.scrollLeft = startLeft - (e.pageX - startX);
 
-    // Only pan vertically if content is taller than the container
+    // pan vertically only if there's overflow
     if (wrap.scrollHeight > wrap.clientHeight) {
-      const dy = e.pageY - startY;
-      wrap.scrollTop = startTop - dy;
+      wrap.scrollTop = startTop - (e.pageY - startY);
     }
   };
 
@@ -620,12 +632,13 @@ function enableDrag(){
     wrap.style.cursor = 'grab';
   };
 
+  // pinch-zoom / ctrl+wheel zoom stays unchanged
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
     const svg = wrap.querySelector('svg');
     const z   = wrap._z || 1;
-    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : 0.9)));
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
     svg.style.transformOrigin = '0 0';
     svg.style.transform       = `scale(${wrap._z})`;
   }, { passive: false });
