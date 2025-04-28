@@ -95,7 +95,6 @@
   overflow-x: auto;
   overflow-y: auto;     /* ← allow vertical scroll */
   cursor: grab;
-      overscroll-behavior-y: contain;
 }
 
     #timelineWrap:active{cursor:grabbing}
@@ -595,46 +594,42 @@ function enableDrag(){
   let startX, startY, startLeft, startTop;
   let allowVert = false;
 
-  function onMouseDown(e) {
+  wrap.addEventListener('mousedown', e => {
+    // horizontally we always pan, vertically we only pan if the browser
+    // will actually let us scroll.  Test that by trying to set scrollTop:
+    const prevTop = wrap.scrollTop;
+    wrap.scrollTop = 1;
+    allowVert = wrap.scrollTop === 1;
+    wrap.scrollTop = prevTop;
+
     down      = true;
     startX    = e.pageX;
     startY    = e.pageY;
     startLeft = wrap.scrollLeft;
     startTop  = wrap.scrollTop;
-    // decide _once_ whether the vertical scrollbar is showing
-    allowVert = wrap.scrollHeight > wrap.clientHeight;
     wrap.style.cursor = 'grabbing';
+  });
 
-    // grab globally so we don't lose the mouse if you move off the wrapper
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup',   onMouseUp);
-  }
-
-  function onMouseMove(e) {
+  document.addEventListener('mousemove', e => {
     if (!down) return;
 
     // always pan horizontally
     const dx = e.pageX - startX;
     wrap.scrollLeft = startLeft - dx;
 
-    // pan vertically only if the wrapper was scrollable
+    // only pan vertically if we really have a vertical scroll to grab
     if (allowVert) {
       const dy = e.pageY - startY;
       wrap.scrollTop = startTop - dy;
     }
-  }
+  });
 
-  function onMouseUp() {
+  document.addEventListener('mouseup', () => {
     down = false;
     wrap.style.cursor = 'grab';
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup',   onMouseUp);
-  }
+  });
 
-  // wire it all up
-  wrap.addEventListener('mousedown', onMouseDown);
-
-  // keep your pinch-zoom / ctrl+wheel zoom exactly the same
+  // leave your pinch-zoom / ctrl+wheel zoom alone
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
@@ -645,6 +640,7 @@ function enableDrag(){
     svg.style.transform       = `scale(${wrap._z})`;
   }, { passive:false });
 }
+
 
 
 /* -------- nav bar -------- */
