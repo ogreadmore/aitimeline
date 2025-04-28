@@ -362,7 +362,8 @@ function horizontal(svg, yMin, yMax) {
   // 6) Toggle the vertical scrollbar on the wrapper
   wrap.style.overflowY = (contentH > wrapperH ? 'auto' : 'hidden');
 
-  // 7) Draw the year tick‐lines all the way down
+  // 7) Draw the year tick‐lines down 90% of the height
+  const tickH = H * 0.9;
   svg.append('g')
      .selectAll('g')
      .data(d3.range(yMin, yMax + 1))
@@ -372,12 +373,10 @@ function horizontal(svg, yMin, yMax) {
          g.append('line')
           .attr('class', 'tick-line')
           .attr('y1', 0)
-          .attr('y2', H);
-         g.append('text')
-          .attr('class', 'tick-text')
-          .attr('y', 18)
-          .text(d => d);
+          .attr('y2', tickH);
+         …
        });
+
 
   // 8) Render each year’s job cards in a vertical stack
   Object.entries(buckets).forEach(([yr, list]) => {
