@@ -362,30 +362,22 @@ function horizontal(svg, yMin, yMax) {
   // 6) Toggle the vertical scrollbar on the wrapper
   wrap.style.overflowY = (contentH > wrapperH ? 'auto' : 'hidden');
 
-  // 7) Draw the year tick-lines down 90% of the height
-const tickH = H * 0.9;
-
-svg.append('g')
-  .selectAll('g')
-  .data(d3.range(yMin, yMax + 1))
-  .enter().append('g')
-    .attr('transform', d => `translate(${x(d)},0)`)
-    .each(function(d) {
-      // vertical line
-      d3.select(this)
-        .append('line')
-        .attr('class', 'tick-line')
-        .attr('y1', 0)
-        .attr('y2', tickH);
-
-      // year label
-      d3.select(this)
-        .append('text')
-        .attr('class', 'tick-text')
-        .attr('y', 18)
-        .text(d);
-    });
-
+  // 7) Draw the year tick‐lines all the way down
+  svg.append('g')
+     .selectAll('g')
+     .data(d3.range(yMin, yMax + 1))
+     .enter().append('g')
+       .attr('transform', d => `translate(${x(d)},0)`)
+       .call(g => {
+         g.append('line')
+          .attr('class', 'tick-line')
+          .attr('y1', 0)
+          .attr('y2', H);
+         g.append('text')
+          .attr('class', 'tick-text')
+          .attr('y', 18)
+          .text(d => d);
+       });
 
   // 8) Render each year’s job cards in a vertical stack
   Object.entries(buckets).forEach(([yr, list]) => {
@@ -596,62 +588,21 @@ function updateSortArrows(){
 }
 
 /* -------- timeline drag / zoom -------- */
-function enableDrag() {
-  const wrap = document.getElementById('timelineWrap');
-  let isDragging = false;
-  let startX = 0, startY = 0;
-  let origScrollLeft = 0, origScrollTop = 0;
-  let allowVert = false;
-
-  wrap.addEventListener('mousedown', e => {
-    // Check *right now* whether the wrapper can scroll vertically
-    allowVert = wrap.scrollHeight > wrap.clientHeight;
-
-    isDragging       = true;
-    startX           = e.pageX;
-    startY           = e.pageY;
-    origScrollLeft   = wrap.scrollLeft;
-    origScrollTop    = wrap.scrollTop;
-    wrap.style.cursor = 'grabbing';
-
-    // Hook up move/up listeners
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup',   onMouseUp);
-  });
-
-  function onMouseMove(e) {
-    if (!isDragging) return;
-    const dx = e.pageX - startX;
-    const dy = e.pageY - startY;
-
-    // Always pan horizontally
-    wrap.scrollLeft = origScrollLeft - dx;
-
-    // Only pan vertically if there really *is* overflow
-    if (allowVert) {
-      wrap.scrollTop = origScrollTop - dy;
-    }
-  }
-
-  function onMouseUp() {
-    isDragging       = false;
-    wrap.style.cursor = 'grab';
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup',   onMouseUp);
-  }
-
-  // Keep pinch-zoom / ctrl+wheel intact
-  wrap.addEventListener('wheel', e => {
-    if (!e.ctrlKey) return;
+function enableDrag(){
+  const wrap=document.getElementById('timelineWrap');
+  let down=false,startX,startLeft;
+  wrap.onmousedown=e=>{down=true;startX=e.pageX;startLeft=wrap.scrollLeft;};
+  wrap.onmousemove=e=>{if(down) wrap.scrollLeft=startLeft-(e.pageX-startX);};
+  document.onmouseup=_=>down=false;
+  wrap.addEventListener('wheel',e=>{
+    if(!e.ctrlKey) return;
     e.preventDefault();
-    const svg = wrap.querySelector('svg');
-    const z   = wrap._z || 1;
-    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
-    svg.style.transformOrigin = '0 0';
-    svg.style.transform       = `scale(${wrap._z})`;
-  }, { passive:false });
+    const svg=wrap.querySelector('svg');
+    const z=wrap._z||1;
+    const next=Math.max(.5,Math.min(3,z*(e.deltaY<0?1.1:.9)));
+    wrap._z=next; svg.style.transformOrigin='0 0'; svg.style.transform=`scale(${next})`;
+  },{passive:false});
 }
-
 
 /* -------- nav bar -------- */
 function navInit(){
