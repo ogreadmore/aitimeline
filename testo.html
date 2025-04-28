@@ -590,22 +590,21 @@ function updateSortArrows(){
 /* -------- timeline drag / zoom -------- */
 function enableDrag(){
   const wrap = document.getElementById('timelineWrap');
-  let down = false;
-  let startX = 0, startY = 0;
-  let origLeft = 0, origTop = 0;
-  let allowVert = false;
+  let down = false,
+      startX = 0, startY = 0,
+      origLeft = 0, origTop = 0,
+      allowVert = false;
 
   wrap.onmousedown = e => {
-    down = true;
-    startX = e.pageX;
-    startY = e.pageY;
-    origLeft = wrap.scrollLeft;
-    origTop  = wrap.scrollTop;
+    down    = true;
+    startX  = e.pageX;
+    startY  = e.pageY;
+    origLeft= wrap.scrollLeft;
+    origTop = wrap.scrollTop;
     wrap.style.cursor = 'grabbing';
 
-    // compute the exact overflow in px
+    // only allow vertical pan if there's real overflow > 5px
     const overflowY = wrap.scrollHeight - wrap.clientHeight;
-    // only allow vertical drag if there's more than, say, 5px of overflow
     allowVert = overflowY > 5;
   };
 
@@ -613,7 +612,7 @@ function enableDrag(){
     if (!down) return;
     // always pan horizontally
     wrap.scrollLeft = origLeft - (e.pageX - startX);
-    // pan vertically only if we've got real overflow
+    // pan vertically only when allowed
     if (allowVert) {
       wrap.scrollTop = origTop - (e.pageY - startY);
     }
@@ -624,7 +623,7 @@ function enableDrag(){
     wrap.style.cursor = 'grab';
   };
 
-  // leave your pinch-zoom / ctrl+wheel zoom as-is
+  // keep your pinch-zoom / ctrl+wheel zoom
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
@@ -633,8 +632,9 @@ function enableDrag(){
     wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
     svg.style.transformOrigin = '0 0';
     svg.style.transform       = `scale(${wrap._z})`;
-  }, { passive:false });
+  }, { passive: false });
 }
+
 
 
 /* -------- nav bar -------- */
