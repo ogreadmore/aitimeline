@@ -594,42 +594,55 @@ function enableDrag(){
   let startX, startY, startLeft, startTop;
   let allowVert = false;
 
-  wrap.onmousedown = e => {
-    down       = true;
-    startX     = e.pageX;
-    startY     = e.pageY;
-    startLeft  = wrap.scrollLeft;
-    startTop   = wrap.scrollTop;
-    // decide _once_ whether there’s a vertical scrollbar
-    allowVert  = wrap.scrollHeight > wrap.clientHeight;
+  function onMouseDown(e) {
+    down      = true;
+    startX    = e.pageX;
+    startY    = e.pageY;
+    startLeft = wrap.scrollLeft;
+    startTop  = wrap.scrollTop;
+    // decide _once_ whether the vertical scrollbar is showing
+    allowVert = wrap.scrollHeight > wrap.clientHeight;
     wrap.style.cursor = 'grabbing';
-  };
 
-  wrap.onmousemove = e => {
+    // grab globally so we don't lose the mouse if you move off the wrapper
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup',   onMouseUp);
+  }
+
+  function onMouseMove(e) {
     if (!down) return;
+
     // always pan horizontally
-    wrap.scrollLeft = startLeft - (e.pageX - startX);
+    const dx = e.pageX - startX;
+    wrap.scrollLeft = startLeft - dx;
 
-    // only pan vertically if there was overflow at mousedown
+    // pan vertically only if the wrapper was scrollable
     if (allowVert) {
-      wrap.scrollTop = startTop - (e.pageY - startY);
+      const dy = e.pageY - startY;
+      wrap.scrollTop = startTop - dy;
     }
-  };
+  }
 
-  document.onmouseup = () => {
+  function onMouseUp() {
     down = false;
     wrap.style.cursor = 'grab';
-  };
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup',   onMouseUp);
+  }
 
+  // wire it all up
+  wrap.addEventListener('mousedown', onMouseDown);
+
+  // keep your pinch-zoom / ctrl+wheel zoom exactly the same
   wrap.addEventListener('wheel', e => {
     if (!e.ctrlKey) return;
     e.preventDefault();
     const svg = wrap.querySelector('svg');
     const z   = wrap._z || 1;
-    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : .9)));
+    wrap._z   = Math.max(.5, Math.min(3, z * (e.deltaY<0 ? 1.1 : .9)));
     svg.style.transformOrigin = '0 0';
     svg.style.transform       = `scale(${wrap._z})`;
-  }, { passive: false });
+  }, { passive:false });
 }
 
 
