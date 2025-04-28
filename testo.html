@@ -212,9 +212,6 @@
       .tick-text{text-anchor:start;font-size:.8rem}
       .job-text{font-size:.55rem}
     }
-
-    #timelineWrap { overscroll-behavior: contain; }
-
   </style>
 </head>
 <body>
@@ -231,9 +228,9 @@
 
 <!-- dataset switcher -->
 <select id="datasetSelect">
-  <option value="jobs-o3-soon.json" selected>ChatGPT o3 2025-2030 4/25</option>
-  <option value="jobs-o3.json">ChatGPT o3 Full Scope 4/25</option>
-  <option value="jobs.json">ChatGPT 4o Full Scope 4/25</option>
+  <option value="jobs.json" selected>ChatGPT 4o 4/25</option>
+  <option value="jobs-o3-soon.json">ChatGPT o3 2025-30 4/25</option>
+  <option value="jobs-o3.json">ChatGPT o3 4/25</option>
 </select>
     </nav>
   </header>
@@ -273,7 +270,7 @@ const CARD_W=160,CARD_H=40,
 /* ----------- STATE ----------- */
 let jobs=[],isMob=false;
 let currentSort={key:'current_automation_pct',asc:false};
-let dataset = document.getElementById('datasetSelect').value;
+let dataset='jobs.json';           /* single, unique declaration */
 
 /* ----------- DATA LOAD ----------- */
 function fetchAndInit () {
@@ -337,7 +334,7 @@ function buildTimeline(){
 function horizontal(svg, yMin, yMax) {
   // Grab the wrapper and its inner height
   const wrap     = document.getElementById('timelineWrap');
-  const wrapperH = wrap.clientHeight;   // interior height only
+  const wrapperH = wrap.clientHeight;
 
   // 1) X‐scale from year to pixels
   const x = d3.scaleLinear()
@@ -375,7 +372,7 @@ function horizontal(svg, yMin, yMax) {
          g.append('line')
           .attr('class', 'tick-line')
           .attr('y1', 0)
-          .attr('y2', wrap.clientHeight);   // clamp to viewport height
+          .attr('y2', H);
          g.append('text')
           .attr('class', 'tick-text')
           .attr('y', 18)
@@ -590,7 +587,7 @@ function updateSortArrows(){
   });
 }
 
-/* -------- timeline drag / zoom (pan on both axes) -------- */
+/* -------- timeline drag / zoom -------- */
 function enableDrag () {
   const wrap = document.getElementById('timelineWrap');
 
@@ -600,61 +597,35 @@ function enableDrag () {
       startL = 0,
       startT = 0;
 
-  /* helpers that work for mouse or touch */
-  function getPos (e) {
-    const p = e.touches ? e.touches[0] : e;
-    return { x: p.pageX, y: p.pageY };
-  }
-
-  /* ── pointer down ───────────────── */
   function handleDown (e) {
     down   = true;
-    const { x, y } = getPos(e);
-    startX = x;           // where the drag started
-    startY = y;
+    startX = e.pageX;
+    startY = e.pageY;
     startL = wrap.scrollLeft;
     startT = wrap.scrollTop;
   }
 
-  /* ── pointer move ───────────────── */
   function handleMove (e) {
     if (!down) return;
-    e.preventDefault();                 // stop text-select → smoother pan
-    const { x, y } = getPos(e);
-    wrap.scrollLeft = startL - (x - startX);
+    e.preventDefault();                       // smoother drag
+
+    const dx = e.pageX - startX;
+    const dy = e.pageY - startY;
+
+    /* always pan horizontally */
+    wrap.scrollLeft = startL - dx;
+
+    /* pan vertically only if the SVG is taller than the viewport */
     if (wrap.scrollHeight > wrap.clientHeight + 1) {
-  wrap.scrollTop = startT - (y - startY);
-}
+      wrap.scrollTop = startT - dy;
+    }
   }
 
-  /* ── pointer up / leave ─────────── */
   function handleUp () { down = false; }
 
-  /* mouse */
   wrap.addEventListener('mousedown', handleDown);
   wrap.addEventListener('mousemove', handleMove);
   document.addEventListener('mouseup', handleUp);
-
-  /* touch */
-  wrap.addEventListener('touchstart', handleDown, { passive: true });
-  wrap.addEventListener('touchmove',  handleMove, { passive: false });
-  wrap.addEventListener('touchend',   handleUp);
-
-  /* keep the existing pinch-zoom (⌘/Ctrl + wheel) */
-  wrap.addEventListener(
-    'wheel',
-    e => {
-      if (!e.ctrlKey) return;
-      e.preventDefault();
-      const svg  = wrap.querySelector('svg');
-      const z    = wrap._z || 1;
-      const next = Math.max(0.5, Math.min(3, z * (e.deltaY < 0 ? 1.1 : 0.9)));
-      wrap._z = next;
-      svg.style.transformOrigin = '0 0';
-      svg.style.transform = `scale(${next})`;
-    },
-    { passive: false }
-  );
 }
 
 
