@@ -354,7 +354,7 @@ function horizontal(svg, yMin, yMax) {
   const maxStack = Math.max(...Object.values(buckets).map(list => list.length));
 
   // 4) How tall the SVG _needs_ to be to show every card
-  const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V) + 20;
+  const contentH = TOP_PAD + maxStack * (CARD_H + GAP_V);
 
   // 5) Final SVG height: the bigger of contentH and wrapperH
   const H = Math.max(contentH, wrapperH);
@@ -622,7 +622,9 @@ function enableDrag () {
     e.preventDefault();                 // stop text-select → smoother pan
     const { x, y } = getPos(e);
     wrap.scrollLeft = startL - (x - startX);
-    wrap.scrollTop  = startT - (y - startY);
+    if (wrap.scrollHeight > wrap.clientHeight + 1) {
+  wrap.scrollTop = startT - (y - startY);
+}
   }
 
   /* ── pointer up / leave ─────────── */
